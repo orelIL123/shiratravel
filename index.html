@@ -3,282 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שירה תיירות - דילים לרחבי העולם</title>
+    <title>שירה תיירות</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">שירה תיירות</div>
-            <button class="mobile-nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="#hero">דף הבית</a></li>
-                <li><a href="#deals">דילים חמים</a></li>
-                <li><a href="#destinations">יעדים</a></li>
-                <li><a href="#about">אודות</a></li>
-                <li><a href="#contact">צור קשר</a></li>
-            </ul>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="logo-wrapper">
+                    <span class="logo">שירה תיירות</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#hero">דף הבית</a></li>
+                    <li><a href="#deals">דילים חמים</a></li>
+                    <li><a href="#destinations">יעדים</a></li>
+                    <li><a href="#about">אודות</a></li>
+                    <li><a href="#contact">צור קשר</a></li>
+                </ul>
+                <button class="mobile-nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="hero-slider">
-                <div class="slide active">
-                    <img src="views/duabi.jpg" alt="Dubai">
-                </div>
-                <div class="slide">
-                    <img src="views/view.jpg" alt="Scenic View">
-                </div>
-                <div class="slide">
-                    <img src="views/vacation.jpg" alt="Vacation">
-                </div>
-                <div class="slide">
-                    <img src="views/unnamed.jpg" alt="Travel">
-                </div>
-                <div class="hero-content">
-                    <div class="hero-text-container">
-                        <h1 class="main-title">שירה תיירות</h1>
-                        <p class="subtitle">החופשה המושלמת בשבילך</p>
-                        <button class="cta-button">צפו בדילים החמים</button>
-                    </div>
-                </div>
-                <div class="slider-navigation">
-                    <button class="prev-slide">&lt;</button>
-                    <div class="slide-dots">
-                        <span class="dot active"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                    <button class="next-slide">&gt;</button>
+    <!-- Hero Section with Slider -->
+    <section id="hero">
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="views/duabi.jpg" alt="Dubai">
+            </div>
+            <div class="slide">
+                <img src="views/view.jpg" alt="Scenic View">
+            </div>
+            <div class="slide">
+                <img src="views/vacation.jpg" alt="Vacation">
+            </div>
+            <div class="slide">
+                <img src="views/unnamed.jpg" alt="Travel">
+            </div>
+            <div class="hero-content">
+                <div class="hero-text-container">
+                    <h1 class="main-title">שירה תיירות</h1>
+                    <p class="subtitle">החופשה המושלמת בשבילך</p>
+                    <button class="cta-button">צפו בדילים החמים</button>
                 </div>
             </div>
-        </section>
+            <div class="slider-navigation">
+                <button class="prev-slide">&lt;</button>
+                <div class="slide-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="next-slide">&gt;</button>
+            </div>
+        </div>
+    </section>
 
-        <section id="categories">
-            <h2>הקטגוריות שלנו</h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="חופשות משפחתיות">
-                    <h3>חופשות משפחתיות</h3>
-                    <p>חוויות מהנות לכל המשפחה</p>
-                </div>
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="חופשות זוגיות">
-                    <h3>חופשות זוגיות</h3>
-                    <p>רגעים רומנטיים בלתי נשכחים</p>
-                </div>
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="טיולי תרמילאים">
-                    <h3>טיולי תרמילאים</h3>
-                    <p>הרפתקאות בלתי נשכחות</p>
-                </div>
+    <section id="categories">
+        <h2>הקטגוריות שלנו</h2>
+        <div class="categories-grid">
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="חופשות משפחתיות">
+                <h3>חופשות משפחתיות</h3>
+                <p>חוויות מהנות לכל המשפחה</p>
             </div>
-        </section>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="חופשות זוגיות">
+                <h3>חופשות זוגיות</h3>
+                <p>רגעים רומנטיים בלתי נשכחים</p>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="טיולי תרמילאים">
+                <h3>טיולי תרמילאים</h3>
+                <p>הרפתקאות בלתי נשכחות</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="deals">
-            <h2>דילים חמים</h2>
-            <div class="deals-grid">
-                <div class="deal-card">
-                    <div class="deal-image">
-                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לאירופה">
-                        <div class="deal-tag">משפחות</div>
-                        <div class="deal-3d-icon"></div>
-                    </div>
-                    <div class="deal-content">
-                        <h3>אירופה - 7 לילות</h3>
-                        <p>טיסה + מלון + סיורים מודרכים</p>
-                        <div class="price">₪4,999</div>
-                        <button class="deal-button">לפרטים נוספים</button>
-                    </div>
+    <section id="deals">
+        <h2>דילים חמים</h2>
+        <div class="deals-grid">
+            <div class="deal-card">
+                <div class="deal-image">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לאירופה">
+                    <div class="deal-tag">משפחות</div>
+                    <div class="deal-3d-icon"></div>
                 </div>
-                <div class="deal-card">
-                    <div class="deal-image">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לתאילנד">
-                        <div class="deal-tag">זוגות</div>
-                        <div class="deal-3d-icon"></div>
-                    </div>
-                    <div class="deal-content">
-                        <h3>תאילנד - 10 לילות</h3>
-                        <p>טיסה + מלון + טיולים מאורגנים</p>
-                        <div class="price">₪6,999</div>
-                        <button class="deal-button">לפרטים נוספים</button>
-                    </div>
-                </div>
-                <div class="deal-card">
-                    <div class="deal-image">
-                        <img src="https://images.unsplash.com/photo-1489447068241-b3490214e879?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל ללרנקה">
-                        <div class="deal-tag">משפחות</div>
-                        <div class="deal-3d-icon"></div>
-                    </div>
-                    <div class="deal-content">
-                        <h3>לרנקה - 5 לילות</h3>
-                        <p>טיסה + מלון + העברות</p>
-                        <div class="price">₪2,999</div>
-                        <button class="deal-button">לפרטים נוספים</button>
-                    </div>
+                <div class="deal-content">
+                    <h3>אירופה - 7 לילות</h3>
+                    <p>טיסה + מלון + סיורים מודרכים</p>
+                    <div class="price">₪4,999</div>
+                    <button class="deal-button">לפרטים נוספים</button>
                 </div>
             </div>
-        </section>
+            <div class="deal-card">
+                <div class="deal-image">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לתאילנד">
+                    <div class="deal-tag">זוגות</div>
+                    <div class="deal-3d-icon"></div>
+                </div>
+                <div class="deal-content">
+                    <h3>תאילנד - 10 לילות</h3>
+                    <p>טיסה + מלון + טיולים מאורגנים</p>
+                    <div class="price">₪6,999</div>
+                    <button class="deal-button">לפרטים נוספים</button>
+                </div>
+            </div>
+            <div class="deal-card">
+                <div class="deal-image">
+                    <img src="https://images.unsplash.com/photo-1489447068241-b3490214e879?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל ללרנקה">
+                    <div class="deal-tag">משפחות</div>
+                    <div class="deal-3d-icon"></div>
+                </div>
+                <div class="deal-content">
+                    <h3>לרנקה - 5 לילות</h3>
+                    <p>טיסה + מלון + העברות</p>
+                    <div class="price">₪2,999</div>
+                    <button class="deal-button">לפרטים נוספים</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="destinations">
-            <h2>יעדים פופולריים</h2>
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="פריז">
-                    <h3>פריז</h3>
-                </div>
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="רומא">
-                    <h3>רומא</h3>
-                </div>
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="ניו יורק">
-                    <h3>ניו יורק</h3>
-                </div>
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1489447068241-b3490214e879?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="לרנקה">
-                    <h3>לרנקה</h3>
-                </div>
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="בנגקוק">
-                    <h3>בנגקוק</h3>
-                </div>
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="ברצלונה">
-                    <h3>ברצלונה</h3>
-                </div>
+    <section id="destinations">
+        <h2>יעדים פופולריים</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="פריז">
+                <h3>פריז</h3>
             </div>
-        </section>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="רומא">
+                <h3>רומא</h3>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="ניו יורק">
+                <h3>ניו יורק</h3>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1489447068241-b3490214e879?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="לרנקה">
+                <h3>לרנקה</h3>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="בנגקוק">
+                <h3>בנגקוק</h3>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="ברצלונה">
+                <h3>ברצלונה</h3>
+            </div>
+        </div>
+    </section>
 
-        <section id="team">
-            <h2>הצוות שלנו</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
-                    </div>
-                    <h3>שרה כהן</h3>
-                    <p class="member-title">מנהלת מכירות</p>
-                    <p class="member-description">מומחית לטיולי משפחות באירופה</p>
+    <section id="team">
+        <h2>הצוות שלנו</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
                 </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכן תיירות">
-                    </div>
-                    <h3>דוד לוי</h3>
-                    <p class="member-title">יועץ תיירות</p>
-                    <p class="member-description">מומחה למזרח הרחוק</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
-                    </div>
-                    <h3>רחל אברהם</h3>
-                    <p class="member-title">יועצת תיירות</p>
-                    <p class="member-description">מומחית לחופשות זוגיות</p>
-                </div>
+                <h3>שרה כהן</h3>
+                <p class="member-title">מנהלת מכירות</p>
+                <p class="member-description">מומחית לטיולי משפחות באירופה</p>
             </div>
-        </section>
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכן תיירות">
+                </div>
+                <h3>דוד לוי</h3>
+                <p class="member-title">יועץ תיירות</p>
+                <p class="member-description">מומחה למזרח הרחוק</p>
+            </div>
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
+                </div>
+                <h3>רחל אברהם</h3>
+                <p class="member-title">יועצת תיירות</p>
+                <p class="member-description">מומחית לחופשות זוגיות</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="about">
-            <h2>אודות שירה תיירות</h2>
-            <div class="about-content">
-                <p>שירה תיירות היא סוכנות תיירות מובילה בישראל, המתמחה במציאת הדילים הטובים ביותר ללקוחותינו ברחבי העולם. הצוות המקצועי שלנו, עם ניסיון של שנים בענף התיירות, מחויב להעניק לכם את החופשה המושלמת במחיר המשתלם ביותר.</p>
-                <div class="about-features">
-                    <div class="feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>מחירים הוגנים</span>
+    <section id="about">
+        <h2>אודות שירה תיירות</h2>
+        <div class="about-content">
+            <p>שירה תיירות היא סוכנות תיירות מובילה בישראל, המתמחה במציאת הדילים הטובים ביותר ללקוחותינו ברחבי העולם. הצוות המקצועי שלנו, עם ניסיון של שנים בענף התיירות, מחויב להעניק לכם את החופשה המושלמת במחיר המשתלם ביותר.</p>
+            <div class="about-features">
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>מחירים הוגנים</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <span>שירות 24/7</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-star"></i>
+                    <span>חוויית לקוח מצוינת</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join-us">
+        <div class="join-us-content">
+            <h2>הצטרפו למשפחת שירה תיירות</h2>
+            <p>אנחנו מחפשים סוכני תיירות מקצועיים ונלהבים להצטרף למשפחה שלנו</p>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h3>הכנסה גבוהה</h3>
+                        <p>תנאי עמלות אטרקטיביים ופוטנציאל הכנסה גבוה</p>
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-clock"></i>
-                        <span>שירות 24/7</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                        <h3>הכשרה מקצועית</h3>
+                        <p>תכנית הכשרה מקיפה וליווי צמוד</p>
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-star"></i>
-                        <span>חוויית לקוח מצוינת</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>גמישות מלאה</h3>
+                        <p>עבודה בזמנים שמתאימים לך</p>
                     </div>
                 </div>
             </div>
-        </section>
+            <button class="join-button">להצטרפות למשפחה</button>
+        </div>
+    </section>
 
-        <section id="join-us">
-            <div class="join-us-content">
-                <h2>הצטרפו למשפחת שירה תיירות</h2>
-                <p>אנחנו מחפשים סוכני תיירות מקצועיים ונלהבים להצטרף למשפחה שלנו</p>
-                <div class="benefits-list">
-                    <div class="benefit-item">
-                        <i class="fas fa-chart-line"></i>
-                        <div>
-                            <h3>הכנסה גבוהה</h3>
-                            <p>תנאי עמלות אטרקטיביים ופוטנציאל הכנסה גבוה</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <h3>הכשרה מקצועית</h3>
-                            <p>תכנית הכשרה מקיפה וליווי צמוד</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h3>גמישות מלאה</h3>
-                            <p>עבודה בזמנים שמתאימים לך</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="join-button">להצטרפות למשפחה</button>
-            </div>
-        </section>
+    <section class="reviews" id="reviews">
+        <h2>ביקורות לקוחות</h2>
+        <div class="review active">
+            <p class="review-text">"שירות מעולה! מצאנו חופשה מושלמת במחיר מצוין."</p>
+            <p class="review-author">- ישראל ישראלי</p>
+        </div>
+        <div class="review">
+            <p class="review-text">"צוות מקצועי ואדיב, ממליצה בחום!"</p>
+            <p class="review-author">- שרה כהן</p>
+        </div>
+        <div class="review">
+            <p class="review-text">"חוויה נהדרת, תודה על השירות המעולה."</p>
+            <p class="review-author">- דוד לוי</p>
+        </div>
+        <div class="review-nav">
+            <button onclick="prevReview()">&#8594;</button>
+            <button onclick="nextReview()">&#8592;</button>
+        </div>
+    </section>
 
-        <section class="reviews" id="reviews">
-            <h2>ביקורות לקוחות</h2>
-            <div class="review active">
-                <p class="review-text">"שירות מעולה! מצאנו חופשה מושלמת במחיר מצוין."</p>
-                <p class="review-author">- ישראל ישראלי</p>
-            </div>
-            <div class="review">
-                <p class="review-text">"צוות מקצועי ואדיב, ממליצה בחום!"</p>
-                <p class="review-author">- שרה כהן</p>
-            </div>
-            <div class="review">
-                <p class="review-text">"חוויה נהדרת, תודה על השירות המעולה."</p>
-                <p class="review-author">- דוד לוי</p>
-            </div>
-            <div class="review-nav">
-                <button onclick="prevReview()">&#8594;</button>
-                <button onclick="nextReview()">&#8592;</button>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2>צור קשר</h2>
-            <div class="contact-form">
-                <form>
-                    <input type="text" placeholder="שם מלא" required>
-                    <input type="email" placeholder="אימייל" required>
-                    <input type="tel" placeholder="טלפון" required>
-                    <select name="subject" required>
-                        <option value="">נושא הפנייה</option>
-                        <option value="family">חופשות משפחתיות</option>
-                        <option value="couples">חופשות זוגיות</option>
-                        <option value="groups">קבוצות</option>
-                        <option value="other">אחר</option>
-                    </select>
-                    <textarea placeholder="הודעה" required></textarea>
-                    <button type="submit">שלח</button>
-                </form>
-            </div>
-        </section>
-    </main>
+    <section id="contact">
+        <h2>צור קשר</h2>
+        <div class="contact-form">
+            <form>
+                <input type="text" placeholder="שם מלא" required>
+                <input type="email" placeholder="אימייל" required>
+                <input type="tel" placeholder="טלפון" required>
+                <select name="subject" required>
+                    <option value="">נושא הפנייה</option>
+                    <option value="family">חופשות משפחתיות</option>
+                    <option value="couples">חופשות זוגיות</option>
+                    <option value="groups">קבוצות</option>
+                    <option value="other">אחר</option>
+                </select>
+                <textarea placeholder="הודעה" required></textarea>
+                <button type="submit">שלח</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-content">

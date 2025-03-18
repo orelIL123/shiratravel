@@ -28,11 +28,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.querySelector('.next-btn');
     let currentSlide = 0;
     let slideInterval;
+    const intervalTime = 5000; // Time between slides in milliseconds
 
     function showSlide(n) {
+        // Remove active class from current slide and dot
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
+        
+        // Calculate new slide index
         currentSlide = (n + slides.length) % slides.length;
+        
+        // Add active class to new slide and dot
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
     }
@@ -46,10 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startSlideShow() {
+        // Clear any existing interval
         if (slideInterval) {
             clearInterval(slideInterval);
         }
-        slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        // Start new interval
+        slideInterval = setInterval(nextSlide, intervalTime);
     }
 
     function stopSlideShow() {
@@ -58,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners
+    // Event Listeners
     prevBtn.addEventListener('click', () => {
         prevSlide();
         stopSlideShow();
@@ -79,12 +87,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Start automatic slideshow
+    // Start the slideshow
     startSlideShow();
 
-    // Pause slideshow when hovering over the slider
-    document.querySelector('#hero').addEventListener('mouseenter', stopSlideShow);
-    document.querySelector('#hero').addEventListener('mouseleave', startSlideShow);
+    // Optional: Pause on hover
+    const heroSection = document.querySelector('#hero');
+    heroSection.addEventListener('mouseenter', stopSlideShow);
+    heroSection.addEventListener('mouseleave', startSlideShow);
+
+    // Initialize first slide
+    showSlide(0);
 });
 
 // Mobile Navigation

@@ -23,120 +23,68 @@ showReview(0);
 // Hero Slider
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelector('.slide-dots');
-    const prevButton = document.querySelector('.prev-slide');
-    const nextButton = document.querySelector('.next-slide');
+    const dots = document.querySelectorAll('.nav-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
     let currentSlide = 0;
-    let isAnimating = false;
+    let slideInterval;
 
-    // Check if slides exist
-    if (slides.length === 0) {
-        console.error('No slides found!');
-        return;
-    }
-
-    // Create navigation dots
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dots.appendChild(dot);
-    });
-
-    // Update slide function
-    function updateSlide() {
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-            slide.style.visibility = 'hidden';
-            slide.style.opacity = '0';
-        });
-        
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
-        slides[currentSlide].style.visibility = 'visible';
-        slides[currentSlide].style.opacity = '1';
-
-        // Update navigation dots
-        document.querySelectorAll('.dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-
-        console.log('Changed to slide:', currentSlide);
-        const currentImage = slides[currentSlide].querySelector('img');
-        console.log('Current slide image:', currentImage ? currentImage.src : 'No image found');
+        dots[currentSlide].classList.add('active');
     }
 
-    // Navigation functions
     function nextSlide() {
-        if (isAnimating) return;
-        isAnimating = true;
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateSlide();
-        setTimeout(() => {
-            isAnimating = false;
-        }, 800);
+        showSlide(currentSlide + 1);
     }
 
     function prevSlide() {
-        if (isAnimating) return;
-        isAnimating = true;
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        updateSlide();
-        setTimeout(() => {
-            isAnimating = false;
-        }, 800);
+        showSlide(currentSlide - 1);
     }
 
-    function goToSlide(index) {
-        if (isAnimating || index === currentSlide) return;
-        isAnimating = true;
-        currentSlide = index;
-        updateSlide();
-        setTimeout(() => {
-            isAnimating = false;
-        }, 800);
+    function startSlideShow() {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+        slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    function stopSlideShow() {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
     }
 
     // Event listeners
-    prevButton.addEventListener('click', prevSlide);
-    nextButton.addEventListener('click', nextSlide);
-
-    // Auto-slide every 3 seconds
-    let autoSlideInterval = setInterval(nextSlide, 3000);
-
-    // Pause auto-slide on hover
-    const sliderContainer = document.querySelector('.hero-slider');
-    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-    sliderContainer.addEventListener('mouseleave', () => {
-        autoSlideInterval = setInterval(nextSlide, 3000);
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopSlideShow();
+        startSlideShow();
     });
 
-    // Mobile touch events
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    sliderContainer.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        clearInterval(autoSlideInterval);
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopSlideShow();
+        startSlideShow();
     });
 
-    sliderContainer.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                nextSlide();
-            } else {
-                prevSlide();
-            }
-        }
-        
-        autoSlideInterval = setInterval(nextSlide, 3000);
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            stopSlideShow();
+            startSlideShow();
+        });
     });
 
-    // Initialize first slide
-    updateSlide();
+    // Start automatic slideshow
+    startSlideShow();
+
+    // Pause slideshow when hovering over the slider
+    document.querySelector('#hero').addEventListener('mouseenter', stopSlideShow);
+    document.querySelector('#hero').addEventListener('mouseleave', startSlideShow);
 });
 
 // Mobile Navigation

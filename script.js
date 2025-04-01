@@ -164,12 +164,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exit Intent Popup Logic
     const exitPopupOverlay = document.getElementById('exitPopupOverlay');
-    let mouseLeftScreen = false;
+    let popupShownThisSession = false; // Flag to show only once per session/page load
+    const cookieExists = document.cookie.includes('exitPopupShown=true');
 
     // Function to show the popup
     const showExitPopup = () => {
-        if (exitPopupOverlay) {
+        // Only show if overlay exists, cookie doesn't exist, and not shown this session
+        if (exitPopupOverlay && !cookieExists && !popupShownThisSession) {
             exitPopupOverlay.classList.add('visible');
+            popupShownThisSession = true; // Set flag for this session
             // Optional: Disable body scroll when popup is open
             // document.body.style.overflow = 'hidden';
         }
@@ -181,25 +184,32 @@ document.addEventListener('DOMContentLoaded', function() {
             exitPopupOverlay.classList.remove('visible');
             // Optional: Re-enable body scroll
             // document.body.style.overflow = 'auto';
-            // Optionally, set a cookie to prevent showing again for a while
-            document.cookie = "exitPopupShown=true; path=/; max-age=86400"; // Expires in 1 day
+            // Set a cookie to prevent showing again for a while (e.g., 1 day)
+            if (!cookieExists) { // Only set cookie if it wasn't already set
+                document.cookie = "exitPopupShown=true; path=/; max-age=86400"; // Expires in 1 day
+            }
         }
     };
 
-    // Trigger when mouse leaves the top of the viewport (common exit intent)
+    // Trigger when mouse leaves the top of the viewport
     document.addEventListener('mouseleave', (e) => {
-        if (e.clientY <= 0 && !document.cookie.includes('exitPopupShown=true')) {
-           // Check if the overlay isn't already visible
-           if (!exitPopupOverlay || !exitPopupOverlay.classList.contains('visible')) {
-             showExitPopup();
-           }
+        if (e.clientY <= 0) { // Check if mouse is near the top
+           showExitPopup();
         }
     });
+
+    // Optional: Trigger after a delay as well (e.g., 15 seconds)
+    /*
+    setTimeout(() => {
+        showExitPopup();
+    }, 15000);
+    */
 
     // Close popup if user clicks outside the popup content
     if (exitPopupOverlay) {
         exitPopupOverlay.addEventListener('click', (e) => {
-            if (e.target === exitPopupOverlay) { // Check if click is on the overlay itself
+            // Check if the click is directly on the overlay (background)
+            if (e.target === exitPopupOverlay) {
                 closeExitPopup();
             }
         });
@@ -213,8 +223,16 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             // Add your logic here to send the phone number to your backend
             console.log('Form submitted');
-            closeExitPopup(); 
+            closeExitPopup();
         });
     }
     */
-}); 
+});
+
+// Initialize AOS
+if (typeof AOS !== 'undefined') {
+    AOS.init({
+        duration: 1000,
+        once: true,
+    });
+} 

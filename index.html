@@ -358,8 +358,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>פרטי התקשרות</h3>
-                <p>טלפון: 052-3985505</p>
-                <p>אימייל: info@betal-travel.co.il</p>
+                <p>טלפון: <a href="tel:0523985505">052-3985505</a></p>
+                <p>אימייל: <a href="mailto:info@betal-travel.co.il">info@betal-travel.co.il</a></p>
             </div>
             <div class="footer-section">
                 <h3>כתובת</h3>
@@ -369,9 +369,16 @@
             <div class="footer-section">
                 <h3>עקבו אחרינו</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/YOUR_PHONE_NUMBER" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                 <!-- WhatsApp Group CTA -->
+                 <div class="footer-whatsapp-cta">
+                    <h4>רוצה דילים סודיים לפני כולם?</h4>
+                    <a href="YOUR_WHATSAPP_GROUP_LINK_HERE" target="_blank">
+                        <i class="fab fa-whatsapp"></i> הצטרף לקבוצה הסודית
+                    </a>
                 </div>
             </div>
         </div>
@@ -401,7 +408,7 @@
     </div>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/YOUR_PHONE_NUMBER" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/YOUR_PHONE_NUMBER" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 

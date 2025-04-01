@@ -27,14 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
     let currentSlide = 0;
-    let isTransitioning = false;
     let slideInterval;
-    const intervalTime = 5000;
+    const intervalTime = 5000; // Time between slides in milliseconds
 
     function showSlide(n) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
         // Remove active class from current slide and dot
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
@@ -45,11 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add active class to new slide and dot
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
-
-        // Reset transition lock after animation completes
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 1000);
     }
 
     function nextSlide() {
@@ -60,44 +51,52 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(currentSlide - 1);
     }
 
-    // Initialize first slide
-    slides[0].classList.add('active');
-    dots[0].classList.add('active');
+    function startSlideShow() {
+        // Clear any existing interval
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+        // Start new interval
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    function stopSlideShow() {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+    }
 
     // Event Listeners
     prevBtn.addEventListener('click', () => {
         prevSlide();
-        resetInterval();
+        stopSlideShow();
+        startSlideShow();
     });
 
     nextBtn.addEventListener('click', () => {
         nextSlide();
-        resetInterval();
+        stopSlideShow();
+        startSlideShow();
     });
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            if (index !== currentSlide) {
-                showSlide(index);
-                resetInterval();
-            }
+            showSlide(index);
+            stopSlideShow();
+            startSlideShow();
         });
     });
 
-    function resetInterval() {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-    }
-
-    // Start automatic slideshow
-    slideInterval = setInterval(nextSlide, intervalTime);
+    // Start the slideshow
+    startSlideShow();
 
     // Optional: Pause on hover
     const heroSection = document.querySelector('#hero');
-    heroSection.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    heroSection.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(nextSlide, intervalTime);
-    });
+    heroSection.addEventListener('mouseenter', stopSlideShow);
+    heroSection.addEventListener('mouseleave', startSlideShow);
+
+    // Initialize first slide
+    showSlide(0);
 });
 
 // Mobile Navigation

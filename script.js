@@ -1,3 +1,11 @@
+// Add fade-in effect on load
+document.addEventListener('DOMContentLoaded', () => {
+    // Slight delay to ensure CSS is loaded
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 100);
+});
+
 // Reviews Navigation
 let currentReviewIndex = 0;
 const reviews = document.querySelectorAll('.review');
@@ -162,58 +170,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Exit Intent Popup Logic
+    // Exit Intent Popup Logic - Refined
     const exitPopupOverlay = document.getElementById('exitPopupOverlay');
-    let popupShownThisSession = false; // Flag to show only once per session/page load
+    if (!exitPopupOverlay) return; // Exit if the element doesn't exist
+
+    let popupShownThisSession = false;
     const cookieExists = document.cookie.includes('exitPopupShown=true');
 
-    // Function to show the popup
     const showExitPopup = () => {
-        // Only show if overlay exists, cookie doesn't exist, and not shown this session
-        if (exitPopupOverlay && !cookieExists && !popupShownThisSession) {
-            exitPopupOverlay.classList.add('visible');
-            popupShownThisSession = true; // Set flag for this session
-            // Optional: Disable body scroll when popup is open
-            // document.body.style.overflow = 'hidden';
+        if (cookieExists || popupShownThisSession) return;
+
+        exitPopupOverlay.classList.add('visible');
+        popupShownThisSession = true;
+        // console.log("Showing exit popup");
+    };
+
+    window.closeExitPopup = () => {
+        exitPopupOverlay.classList.remove('visible');
+        if (!cookieExists) {
+            const expires = new Date();
+            expires.setDate(expires.getDate() + 1); // Cookie expires in 1 day
+            document.cookie = `exitPopupShown=true; path=/; expires=${expires.toUTCString()}`;
+            // console.log("Closing exit popup and setting cookie");
         }
     };
 
-    // Function to close the popup
-    window.closeExitPopup = () => { // Make function global for onclick
-        if (exitPopupOverlay) {
-            exitPopupOverlay.classList.remove('visible');
-            // Optional: Re-enable body scroll
-            // document.body.style.overflow = 'auto';
-            // Set a cookie to prevent showing again for a while (e.g., 1 day)
-            if (!cookieExists) { // Only set cookie if it wasn't already set
-                document.cookie = "exitPopupShown=true; path=/; max-age=86400"; // Expires in 1 day
-            }
-        }
-    };
-
-    // Trigger when mouse leaves the top of the viewport
+    // Trigger when mouse leaves the viewport towards the top
+    let mouseLeaveTimeout;
     document.addEventListener('mouseleave', (e) => {
-        if (e.clientY <= 0) { // Check if mouse is near the top
-           showExitPopup();
+        // Check if mouse is near the top edge (e.g., 10px)
+        if (e.clientY <= 10) {
+            // Use a small delay to prevent accidental triggers
+            clearTimeout(mouseLeaveTimeout);
+            mouseLeaveTimeout = setTimeout(showExitPopup, 200); // Show after 200ms
         }
     });
 
-    // Optional: Trigger after a delay as well (e.g., 15 seconds)
-    /*
-    setTimeout(() => {
-        showExitPopup();
-    }, 15000);
-    */
+    // Clear timeout if mouse re-enters quickly
+    document.addEventListener('mouseenter', () => {
+        clearTimeout(mouseLeaveTimeout);
+    });
+
+    // Close popup on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && exitPopupOverlay.classList.contains('visible')) {
+            closeExitPopup();
+        }
+    });
 
     // Close popup if user clicks outside the popup content
-    if (exitPopupOverlay) {
-        exitPopupOverlay.addEventListener('click', (e) => {
-            // Check if the click is directly on the overlay (background)
-            if (e.target === exitPopupOverlay) {
-                closeExitPopup();
-            }
-        });
-    }
+    exitPopupOverlay.addEventListener('click', (e) => {
+        if (e.target === exitPopupOverlay) {
+            closeExitPopup();
+        }
+    });
 
     // Optional: Handle form submission if using Option 2 (Requires backend)
     /*

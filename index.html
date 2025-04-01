@@ -305,21 +305,32 @@
 
     <section class="reviews" id="reviews">
         <h2>ביקורות לקוחות</h2>
-        <div class="review active">
-            <p class="review-text">"שירות מעולה! מצאנו חופשה מושלמת במחיר מצוין."</p>
-            <p class="review-author">- ישראל ישראלי</p>
-        </div>
-        <div class="review">
-            <p class="review-text">"צוות מקצועי ואדיב, ממליצה בחום!"</p>
-            <p class="review-author">- שרה כהן</p>
-        </div>
-        <div class="review">
-            <p class="review-text">"חוויה נהדרת, תודה על השירות המעולה."</p>
-            <p class="review-author">- דוד לוי</p>
-        </div>
-        <div class="review-nav">
-            <button onclick="prevReview()">&#8594;</button>
-            <button onclick="nextReview()">&#8592;</button>
+        <div class="review-slider-container">
+            <div class="review active">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">שירות מעולה! מצאנו חופשה מושלמת במחיר מצוין.</p>
+                <p class="review-author">- ישראל ישראלי</p>
+            </div>
+            <div class="review">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">צוות מקצועי ואדיב, ממליצה בחום!</p>
+                <p class="review-author">- שרה כהן</p>
+            </div>
+            <div class="review">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                </div>
+                <p class="review-text">חוויה נהדרת, תודה על השירות המעולה.</p>
+                <p class="review-author">- דוד לוי</p>
+            </div>
+            <div class="review-nav">
+                <button onclick="prevReview()" aria-label="ביקורת קודמת">&#10094;</button>
+                <button onclick="nextReview()" aria-label="ביקורת הבאה">&#10095;</button>
+            </div>
         </div>
     </section>
 
@@ -370,15 +381,22 @@
     </footer>
 
     <!-- Exit Popup -->
-    <div class="exit-popup-overlay">
+    <div class="exit-popup-overlay" id="exitPopupOverlay">
         <div class="exit-popup">
-            <button class="close-popup">&times;</button>
-            <h3>רגע, לפני שאתה עוזב!</h3>
-            <p>אל תפספס את הדילים הכי שווים! השאר אימייל וקבל עדכונים על מבצעים מטורפים ליעדים החמים ביותר</p>
-            <form class="exit-popup-form">
-                <input type="email" placeholder="האימייל שלך" required>
-                <button type="submit">כן, אני רוצה לקבל דילים שווים!</button>
-            </form>
+            <button class="close-popup" onclick="closeExitPopup()" aria-label="סגור">&times;</button>
+            <h3>רגע, לפני שאתה יוצא!</h3>
+            <p>אל תפספס את הדילים הסודיים שלנו! הצטרף לקבוצת ה-WhatsApp וקבל עדכונים לפני כולם.</p>
+            <!-- Option 1: Direct WhatsApp Group Link -->
+            <a href="YOUR_WHATSAPP_GROUP_LINK_HERE" class="whatsapp-join-link" target="_blank">
+                <i class="fab fa-whatsapp"></i> הצטרף לקבוצה הסודית
+            </a>
+             <!-- Option 2: Collect Phone Number (Requires Backend) -->
+            <!-- 
+            <form class="exit-popup-form" id="exitPopupForm">
+                <input type="tel" placeholder="השאר מספר WhatsApp ונצרף אותך" required>
+                <button type="submit">צרפו אותי!</button>
+            </form> 
+            -->
         </div>
     </div>
 

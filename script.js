@@ -1,24 +1,33 @@
 // Reviews Navigation
-let currentReview = 0;
+let currentReviewIndex = 0;
 const reviews = document.querySelectorAll('.review');
 
 function showReview(index) {
-    reviews.forEach(review => review.classList.remove('active'));
-    reviews[index].classList.add('active');
+    if (!reviews || reviews.length === 0) return; // Ensure reviews exist
+    reviews.forEach((review, i) => {
+        review.classList.remove('active');
+        if (i === index) {
+            review.classList.add('active');
+        }
+    });
 }
 
 function nextReview() {
-    currentReview = (currentReview + 1) % reviews.length;
-    showReview(currentReview);
+    if (!reviews || reviews.length === 0) return;
+    currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+    showReview(currentReviewIndex);
 }
 
 function prevReview() {
-    currentReview = (currentReview - 1 + reviews.length) % reviews.length;
-    showReview(currentReview);
+    if (!reviews || reviews.length === 0) return;
+    currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+    showReview(currentReviewIndex);
 }
 
-// Initialize first review
-showReview(0);
+// Initialize the first review
+document.addEventListener('DOMContentLoaded', () => {
+    showReview(0);
+});
 
 // Hero Slider
 document.addEventListener('DOMContentLoaded', function() {
@@ -99,31 +108,27 @@ document.addEventListener('DOMContentLoaded', function() {
     showSlide(0);
 });
 
-// Mobile Navigation
-const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-const navLinks = document.querySelector('.nav-links');
+// Mobile Navigation Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
 
-mobileNavToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navLinks.classList.contains('active') && 
-        !e.target.closest('.nav-links') && 
-        !e.target.closest('.mobile-nav-toggle')) {
-        navLinks.classList.remove('active');
-        document.body.style.overflow = '';
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileNavToggle.classList.toggle('active');
+        });
     }
-});
 
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        document.body.style.overflow = '';
-    });
+    // Close mobile menu when a link is clicked
+    if (navLinks) {
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileNavToggle.classList.remove('active');
+            });
+        });
+    }
 });
 
 // Smooth scrolling for navigation links
@@ -157,50 +162,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Exit Popup Functionality
-    const exitPopup = document.querySelector('.exit-popup-overlay');
-    const closePopupBtn = document.querySelector('.close-popup');
-    const exitPopupForm = document.querySelector('.exit-popup-form');
-    let hasShownPopup = false;
+    // Exit Intent Popup Logic
+    const exitPopupOverlay = document.getElementById('exitPopupOverlay');
+    let mouseLeftScreen = false;
 
-    if (exitPopup && closePopupBtn && exitPopupForm) {
-        // Show popup when mouse leaves the window
-        document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0 && !hasShownPopup) {
-                showExitPopup();
+    // Function to show the popup
+    const showExitPopup = () => {
+        if (exitPopupOverlay) {
+            exitPopupOverlay.classList.add('visible');
+            // Optional: Disable body scroll when popup is open
+            // document.body.style.overflow = 'hidden';
+        }
+    };
+
+    // Function to close the popup
+    window.closeExitPopup = () => { // Make function global for onclick
+        if (exitPopupOverlay) {
+            exitPopupOverlay.classList.remove('visible');
+            // Optional: Re-enable body scroll
+            // document.body.style.overflow = 'auto';
+            // Optionally, set a cookie to prevent showing again for a while
+            document.cookie = "exitPopupShown=true; path=/; max-age=86400"; // Expires in 1 day
+        }
+    };
+
+    // Trigger when mouse leaves the top of the viewport (common exit intent)
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0 && !document.cookie.includes('exitPopupShown=true')) {
+           // Check if the overlay isn't already visible
+           if (!exitPopupOverlay || !exitPopupOverlay.classList.contains('visible')) {
+             showExitPopup();
+           }
+        }
+    });
+
+    // Close popup if user clicks outside the popup content
+    if (exitPopupOverlay) {
+        exitPopupOverlay.addEventListener('click', (e) => {
+            if (e.target === exitPopupOverlay) { // Check if click is on the overlay itself
+                closeExitPopup();
             }
         });
+    }
 
-        // Close popup when clicking close button
-        closePopupBtn.addEventListener('click', function() {
-            hideExitPopup();
-        });
-
-        // Close popup when clicking outside
-        exitPopup.addEventListener('click', function(e) {
-            if (e.target === exitPopup) {
-                hideExitPopup();
-            }
-        });
-
-        // Handle form submission
-        exitPopupForm.addEventListener('submit', function(e) {
+    // Optional: Handle form submission if using Option 2 (Requires backend)
+    /*
+    const exitPopupForm = document.getElementById('exitPopupForm');
+    if (exitPopupForm) {
+        exitPopupForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            console.log('Email submitted:', email);
-            alert('תודה! נשלח אליך עדכונים על הדילים הכי שווים!');
-            hideExitPopup();
-            hasShownPopup = true;
+            // Add your logic here to send the phone number to your backend
+            console.log('Form submitted');
+            closeExitPopup(); 
         });
     }
-
-    function showExitPopup() {
-        exitPopup.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function hideExitPopup() {
-        exitPopup.style.display = 'none';
-        document.body.style.overflow = '';
-    }
+    */
 }); 

@@ -245,4 +245,94 @@ if (typeof AOS !== 'undefined') {
         duration: 1000,
         once: true,
     });
-} 
+}
+
+// Accessibility Functions
+function toggleTextSize() {
+    const body = document.body;
+    const currentSize = parseFloat(getComputedStyle(body).fontSize);
+    const newSize = currentSize === 16 ? 18 : 16;
+    body.style.fontSize = `${newSize}px`;
+    localStorage.setItem('fontSize', newSize);
+}
+
+// Check for saved font size preference
+document.addEventListener('DOMContentLoaded', () => {
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+        document.body.style.fontSize = `${savedFontSize}px`;
+    }
+});
+
+// Terms Modal Functions
+function showTermsModal() {
+    const modal = document.getElementById('termsModal');
+    modal.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTermsModal() {
+    const modal = document.getElementById('termsModal');
+    modal.classList.remove('visible');
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside
+document.getElementById('termsModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+        closeTermsModal();
+    }
+});
+
+// Hot Deals Management
+let hotDeals = [];
+
+function addHotDeal(deal) {
+    hotDeals.push(deal);
+    updateHotDealsDisplay();
+}
+
+function updateHotDealsDisplay() {
+    const container = document.querySelector('.hot-deals-container');
+    container.innerHTML = hotDeals.map(deal => `
+        <div class="hot-deal-card">
+            <div class="hot-deal-header">
+                <h3 class="hot-deal-title">${deal.title}</h3>
+                <div class="hot-deal-price">${deal.price}</div>
+            </div>
+            <div class="hot-deal-details">
+                <p>${deal.description}</p>
+                <p>${deal.dates}</p>
+            </div>
+            <div class="hot-deal-flight">
+                <p><strong>טיסה:</strong> ${deal.flight}</p>
+                <p><strong>הלוך:</strong> ${deal.departure}</p>
+                <p><strong>חזור:</strong> ${deal.return}</p>
+            </div>
+            <div class="hot-deal-features">
+                ${deal.features.map(feature => `
+                    <span class="hot-deal-feature">${feature}</span>
+                `).join('')}
+            </div>
+            <a href="#" class="hot-deal-cta">לפרטים נוספים</a>
+        </div>
+    `).join('');
+}
+
+// Example usage:
+// addHotDeal({
+//     title: "הילטון אל האבטור דובאי",
+//     price: "2,500 ₪ לאדם",
+//     description: "5 ימים בדובאי במלון מדהים 5 כוכבים על שפת הים כולל ארוחת בוקר",
+//     dates: "18/06 עד 22/06 ראשון עד חמישי",
+//     flight: "חברת תעופה: אלעל✈️",
+//     departure: "06:30 בבוקר יום ראשון *18/06*",
+//     return: "19:30 המראה מדובאי יום חמישי *22/06*",
+//     features: [
+//         "כבודה מלאה- טרולי 5 קילו + מזוודה 20 קילו לכל נוסע",
+//         "ליווי בכל המצטרך",
+//         "אטרקציות",
+//         "העברות במידה ויש צורך",
+//         "אפשרות לארוחות כשרות למהדרין"
+//     ]
+// }); 

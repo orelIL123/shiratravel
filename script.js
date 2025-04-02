@@ -339,4 +339,66 @@ function updateHotDealsDisplay() {
 // });
 */
 
+// --- Exit Intent Popup Logic ---
+const exitPopup = document.getElementById('exitPopup');
+const closePopupButton = document.getElementById('closePopup');
+let popupShownThisSession = false; // Track if shown in this specific visit
+
+// Function to show the popup
+function showExitPopup() {
+    // Check if the popup element exists, if it was already shown this session, or if the cookie exists
+    const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith('exitPopupShown='));
+
+    if (exitPopup && !popupShownThisSession && !cookieExists) {
+        exitPopup.style.display = 'flex'; // Use flex to center content
+        // Add class for potential fade-in animation (add CSS for .exit-popup.visible { opacity: 1; } if needed)
+        setTimeout(() => exitPopup.classList.add('visible'), 10); 
+        document.body.style.overflow = 'hidden'; // Prevent scrolling while popup is open
+        popupShownThisSession = true; // Mark as shown for this session
+
+        // Set a cookie to prevent showing for 1 day
+        let expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 1); // Expires in 1 day
+        document.cookie = `exitPopupShown=true; expires=${expiryDate.toUTCString()}; path=/`;
+    }
+}
+
+// Function to close the popup
+function closeExitPopup() {
+    if (exitPopup) {
+        exitPopup.classList.remove('visible');
+        // Wait for fade-out animation before hiding completely
+        setTimeout(() => {
+             exitPopup.style.display = 'none';
+             document.body.style.overflow = ''; // Restore scrolling
+        }, 300); // Match this duration to CSS transition if any
+       
+    }
+}
+
+// Event listener for mouse leaving the viewport towards the top
+document.addEventListener('mouseleave', (e) => {
+    // Check if mouse Y position is near the top edge
+    if (e.clientY <= 15) { // Trigger when mouse is within 15px of the top
+         // Optional: Add a small delay to prevent accidental triggers
+        setTimeout(showExitPopup, 200); // Delay of 200ms
+    }
+});
+
+// Event listener for the close button inside the popup
+if (closePopupButton) {
+    closePopupButton.addEventListener('click', closeExitPopup);
+}
+
+// Optional: Close popup if user clicks outside the popup content
+if (exitPopup) {
+    exitPopup.addEventListener('click', (e) => {
+        // Check if the click is on the overlay itself, not the content
+        if (e.target === exitPopup) {
+            closeExitPopup();
+        }
+    });
+}
+// --- End Exit Intent Popup Logic ---
+
 // ... rest of the code ... 

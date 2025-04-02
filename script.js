@@ -284,7 +284,8 @@ document.getElementById('termsModal').addEventListener('click', (e) => {
     }
 });
 
-// Hot Deals Management
+// Hot Deals Management - REMOVE THIS SECTION
+/*
 let hotDeals = [];
 
 function addHotDeal(deal) {
@@ -335,4 +336,7 @@ function updateHotDealsDisplay() {
 //         "העברות במידה ויש צורך",
 //         "אפשרות לארוחות כשרות למהדרין"
 //     ]
-// }); 
+// });
+*/
+
+// ... rest of the code ... 

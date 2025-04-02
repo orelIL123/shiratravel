@@ -1544,7 +1544,8 @@ footer {
     line-height: 1.6;
 }
 
-/* Hot Deals Section */
+/* Hot Deals Section - REMOVE ALL STYLES BELOW */
+/*
 .hot-deals {
     padding: 4rem 2rem;
     background: var(--neutral-light);
@@ -1645,3 +1646,6 @@ footer {
         font-size: 1.8rem;
     }
 } 
+*/
+
+/* ... rest of the code ... */ 

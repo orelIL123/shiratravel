@@ -170,7 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Exit Intent Popup Logic - Refined
+    // Exit Intent Popup Logic - Refined -- REMOVE THIS ENTIRE BLOCK (lines 167-217)
+    /* 
     const exitPopupOverlay = document.getElementById('exitPopupOverlay');
     if (!exitPopupOverlay) return; // Exit if the element doesn't exist
 
@@ -224,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeExitPopup();
         }
     });
+    */
 
     // Optional: Handle form submission if using Option 2 (Requires backend)
     /*

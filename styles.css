@@ -1300,7 +1300,7 @@ footer {
 }
 
 /* Exit Popup Styles */
-.exit-popup {
+.exit-popup { /* This is now the overlay */
     display: none; /* Hidden by default */
     position: fixed;
     top: 0;
@@ -1314,15 +1314,16 @@ footer {
     align-items: center;
     justify-content: center;
     opacity: 0; /* Start transparent for fade-in */
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Added visibility transition */
     visibility: hidden; /* Use visibility for better performance */
 }
 
-.exit-popup.visible {
+.exit-popup.visible { /* When overlay is visible */
     opacity: 1;
     visibility: visible;
 }
 
+/* This is the white box */
 .exit-popup-content {
     background: var(--white);
     padding: 2.5rem;
@@ -1336,10 +1337,12 @@ footer {
     transition: transform 0.3s ease;
 }
 
+/* Animate the white box when overlay is visible */
 .exit-popup.visible .exit-popup-content {
     transform: scale(1); /* Zoom in on entry */
 }
 
+/* Styles for the content *inside* the white box */
 .exit-popup-content h3 {
     color: var(--secondary-color);
     margin-bottom: 1rem;
@@ -1351,7 +1354,31 @@ footer {
     color: var(--neutral-dark);
 }
 
-.close-popup {
+/* Style for the WhatsApp link inside */
+.exit-popup-content .whatsapp-join-link {
+    display: inline-block;
+    background: #25D366;
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.exit-popup-content .whatsapp-join-link i {
+    margin-right: 8px;
+}
+
+.exit-popup-content .whatsapp-join-link:hover {
+    background: #1ebe5a;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Style for the close button (now correctly inside .exit-popup-content) */
+.exit-popup-content .close-popup {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -1363,7 +1390,7 @@ footer {
     transition: color 0.2s ease;
 }
 
-.close-popup:hover {
+.exit-popup-content .close-popup:hover {
     color: var(--primary-color);
 }
 

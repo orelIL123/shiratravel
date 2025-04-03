@@ -136,23 +136,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heroSection && planeContainer && planeFront && heroContent) {
             gsap.timeline({
                 scrollTrigger: {
-                    trigger: heroSection, // Element that triggers the animation
-                    start: "top top",     // Animation starts when top of trigger hits top of viewport
-                    end: "bottom bottom", // Animation ends when bottom of trigger hits bottom of viewport
-                    scrub: true,          // Smoothly links animation progress to scroll progress
-                    pin: planeContainer,  // Pins the plane container while scrolling through the hero section
-                    pinSpacing: false,    // Avoids adding extra space after pinning
-                    anticipatePin: 1      // Helps prevent jarring jumps when pinning
+                    trigger: heroSection,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: true,
+                    pin: planeContainer,
+                    pinSpacing: false,
+                    anticipatePin: 1,
+                    markers: true // Add markers for debugging
                 }
             })
             .to(planeFront, { 
-                opacity: 1,  // Fade in the front plane
-                ease: "none" // Linear ease for scrub effect
-            }, 0) // Start the fade-in at the beginning of the timeline
+                opacity: 1,
+                ease: "none"
+            }, 0)
             .to(heroContent, { 
-                opacity: 0,  // Fade out the text towards the end
+                opacity: 0,
                 ease: "power1.in" 
-            }, 0.7); // Start fading text out at 70% of the scroll progress
+            }, 0.7);
 
         }
 

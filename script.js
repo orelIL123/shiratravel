@@ -120,6 +120,47 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 */
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero Scroll Animation
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if GSAP and ScrollTrigger are loaded
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        
+        const heroSection = document.querySelector('#hero');
+        const planeContainer = document.querySelector('.plane-container');
+        const planeFront = document.querySelector('.plane-front');
+        const heroContent = document.querySelector('.hero-content');
+
+        if (heroSection && planeContainer && planeFront && heroContent) {
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: heroSection, // Element that triggers the animation
+                    start: "top top",     // Animation starts when top of trigger hits top of viewport
+                    end: "bottom bottom", // Animation ends when bottom of trigger hits bottom of viewport
+                    scrub: true,          // Smoothly links animation progress to scroll progress
+                    pin: planeContainer,  // Pins the plane container while scrolling through the hero section
+                    pinSpacing: false,    // Avoids adding extra space after pinning
+                    anticipatePin: 1      // Helps prevent jarring jumps when pinning
+                }
+            })
+            .to(planeFront, { 
+                opacity: 1,  // Fade in the front plane
+                ease: "none" // Linear ease for scrub effect
+            }, 0) // Start the fade-in at the beginning of the timeline
+            .to(heroContent, { 
+                opacity: 0,  // Fade out the text towards the end
+                ease: "power1.in" 
+            }, 0.7); // Start fading text out at 70% of the scroll progress
+
+        }
+
+    } else {
+        console.error("GSAP or ScrollTrigger not loaded.");
+    }
+});
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');

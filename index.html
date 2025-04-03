@@ -36,19 +36,18 @@
 
     <!-- Hero Section -->
     <section id="hero">
-        <!-- Static Background Image -->
-        <img src="images/d24187de-6f70-4542-afc6-a6beec704a5c.webp" alt="רקע חופשה" class="hero-background-image">
-        <!-- IMPORTANT: Image path updated to relative path -->
+        <!-- Container for the planes -->
+        <div class="plane-container">
+            <img src="images/plane2.webp" alt="מטוס מאחור טס בין עננים" class="plane-image plane-back">
+            <img src="images/plane1.webp" alt="מטוס מקדימה טס בין עננים" class="plane-image plane-front">
+        </div>
 
+        <!-- Text Content -->
         <div class="hero-content">
             <div class="hero-text-container">
                 <h1>ברוכים הבאים לחופשה המושלמת שלך</h1>
-                <!-- Removed subtitle and button -->
             </div>
         </div>
-
-        <!-- Removed Slider Navigation and Dots -->
-
     </section>
 
     <!-- Categories Section - Restructured -->
@@ -415,6 +414,11 @@
         </div>
     </div>
 
+    <!-- Include GSAP and ScrollTrigger libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Your existing script tag -->
     <script src="/shiratravel/script.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

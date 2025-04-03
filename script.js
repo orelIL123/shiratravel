@@ -1,10 +1,12 @@
-// Add fade-in effect on load
+// Add fade-in effect on load - REMOVED as new animation handles entry
+/*
 document.addEventListener('DOMContentLoaded', () => {
     // Slight delay to ensure CSS is loaded
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
 });
+*/
 
 // Reviews Navigation
 let currentReviewIndex = 0;

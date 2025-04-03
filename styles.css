@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
 @import url('https://unpkg.com/aos@next/dist/aos.css');
 
 /* Custom Properties */
@@ -39,6 +40,12 @@ body, html {
     overflow-x: hidden;
     width: 100%;
     font-size: 16px; /* Base font size */
+    font-family: var(--font-primary); /* Apply the default font */
+    line-height: 1.7; /* Restore line-height */
+    direction: rtl; /* Restore direction */
+    color: var(--text-color); /* Restore default text color */
+    background-color: var(--neutral-light); /* Restore background */
+    /* Removed gradient background for now, can be re-added if needed */
 }
 
 /* Remove general body fade-in */

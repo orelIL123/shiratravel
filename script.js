@@ -120,10 +120,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 */
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+// Register GSAP plugins - REMOVED
 
-// Hero Scroll Animation
+// Hero Scroll Animation - REMOVED
+/*
 document.addEventListener('DOMContentLoaded', () => {
     // Check if GSAP and ScrollTrigger are loaded
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     start: "top top",
                     end: "bottom bottom",
                     scrub: true,
+                    // pin: planeContainer, // Temporarily disable pinning
                     pinSpacing: false,
                     anticipatePin: 1,
                     markers: true // Keep markers enabled
@@ -160,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("GSAP or ScrollTrigger not loaded.");
     }
 });
+*/
 
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {

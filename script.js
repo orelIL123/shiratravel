@@ -140,20 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     start: "top top",
                     end: "bottom bottom",
                     scrub: true,
-                    pin: planeContainer,
                     pinSpacing: false,
                     anticipatePin: 1,
-                    markers: true // Add markers for debugging
+                    markers: true // Keep markers enabled
                 }
             })
             .to(planeFront, { 
-                opacity: 1,
+                opacity: 1,  // Just fade in the front plane
                 ease: "none"
-            }, 0)
-            .to(heroContent, { 
+            }); // Removed the heroContent animation for now
+            /* .to(heroContent, { 
                 opacity: 0,
                 ease: "power1.in" 
-            }, 0.7);
+            }, 0.7); */
 
         }
 

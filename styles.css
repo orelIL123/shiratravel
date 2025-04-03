@@ -236,20 +236,11 @@ header {
     }
 }
 
-/* Keyframes for Hero Animation */
-@keyframes heroZoomEffect {
-  from {
-    transform: scale(1.1); /* Start slightly zoomed in */
-  }
-  to {
-    transform: scale(1); /* End at normal size */
-  }
-}
-
+/* Keyframes for Hero Animation (Keeping slideUpFadeIn and fadeIn) */
 @keyframes slideUpFadeIn {
   from {
     opacity: 0;
-    transform: translateY(40px); /* Start lower */
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -266,7 +257,7 @@ header {
   }
 }
 
-/* Hero Section Styles */
+/* Hero Section Styles - Updated for Static Image */
 #hero {
     position: relative;
     height: 100vh;
@@ -277,170 +268,62 @@ header {
     color: var(--white);
 }
 
-.hero-slider {
+.hero-background-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-.hero-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-slide.active {
-    opacity: 1;
-}
-
-.slide-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    filter: brightness(0.6); /* Keep the dark overlay */
-}
-
-/* Apply zoom animation ONLY to the background of the FIRST active slide on load */
-.hero-slide.active:first-child .slide-background {
-    animation: heroZoomEffect 8s ease-out forwards;
-    /* Long duration for subtle effect, 'forwards' keeps the end state */
+    object-fit: cover; /* Ensures the image covers the area */
+    object-position: center; /* Center the image */
+    z-index: 0; /* Background layer */
+    filter: brightness(0.6); /* Keep the dark overlay for text contrast */
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Ensure content is above the image */
     text-align: center;
     padding: 2rem;
 }
 
 .hero-text-container {
-    max-width: 800px;
+    max-width: 900px; /* Allow slightly wider text */
     margin: 0 auto;
-    /* Ensure flex centering from before is still okay or adjust */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Initial state for animated text */
-.hero-content h1,
-.hero-content p,
-.hero-content .btn {
-    opacity: 0; /* Start hidden */
-}
-
-/* Apply animations to text elements */
+/* Animate the heading */
 .hero-content h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    opacity: 0; /* Start hidden */
+    font-size: clamp(2.8rem, 7vw, 5rem); /* Larger font size */
     font-weight: 700;
-    margin-bottom: 0.5rem; /* Reduced margin */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-    animation: slideUpFadeIn 1s ease-out 0.5s forwards; /* Delay 0.5s */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+    animation: slideUpFadeIn 1.2s ease-out 0.5s forwards; /* Animation */
+    line-height: 1.3;
 }
 
-.hero-content p {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-    animation: fadeIn 1s ease-out 1s forwards; /* Delay 1s (after h1) */
-}
+/* Remove styles related to the old slider */
+/*
+.hero-slider { ... }
+.hero-slide { ... }
+.hero-slide.active { ... }
+.slide-background { ... }
+.hero-slide.active:first-child .slide-background { ... }
+.hero-content p { ... }
+.hero-content .btn { ... }
+.prev-btn, .next-btn { ... }
+.prev-btn:hover, .next-btn:hover { ... }
+.prev-btn { ... } .next-btn { ... }
+.slider-nav { ... }
+.nav-btn { ... }
+.nav-btn.active { ... }
+*/
 
-.hero-content .btn {
-    animation: fadeIn 1s ease-out 1.5s forwards; /* Delay 1.5s (after p) */
-    /* Keep existing button styles */
-}
-
-/* Hero Navigation Buttons */
-.prev-btn,
-.next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    width: 45px; /* Slightly smaller */
-    height: 45px;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    z-index: 3;
-    border-radius: 50%;
-    transition: var(--transition);
-    display: flex; /* Center icon */
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(3px);
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.prev-btn { left: 1rem; }
-.next-btn { right: 1rem; }
-
-.slider-nav {
-    position: absolute;
-    bottom: 1.5rem; /* Closer to bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.8rem;
-    z-index: 3;
-}
-
-.nav-btn {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.nav-btn.active {
-    background: white;
-    transform: scale(1.3);
-}
-
-/* Hero - Desktop Styles */
-@media (min-width: 768px) {
-    .hero-content {
-        padding: 2rem;
-    }
-    .hero-text-container {
-        padding: 3rem 4rem;
-    }
-    .main-title {
-        font-size: 4.5rem;
-    }
-    .subtitle {
-        font-size: 1.8rem;
-    }
-    .prev-btn, .next-btn {
-        width: 55px;
-        height: 55px;
-        font-size: 2rem;
-    }
-    .prev-btn { left: 2rem; }
-    .next-btn { right: 2rem; }
-    .slider-nav { bottom: 2rem; }
-    .nav-btn { width: 12px; height: 12px; }
-}
+/* Remove Desktop Styles specific to the old slider elements if any */
+/* @media (min-width: 768px) { ... remove slider specific styles ... } */
 
 /* Why Agent Section */
 #why-agent {

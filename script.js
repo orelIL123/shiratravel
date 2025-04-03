@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     showReview(0);
 });
 
-// Hero Slider
+// Hero Slider - REMOVE THIS ENTIRE BLOCK
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.nav-btn');
@@ -117,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize first slide
     showSlide(0);
 });
+*/
 
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {

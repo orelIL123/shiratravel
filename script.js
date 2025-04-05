@@ -450,4 +450,85 @@ if (exitPopup) {
 }
 // --- End Exit Intent Popup Logic ---
 
+// --- GPT Chat Widget Logic ---
+const gptChatWidget = document.getElementById('gpt-chat-widget');
+const gptChatToggle = document.getElementById('gpt-chat-toggle');
+const gptChatBody = document.getElementById('gpt-chat-body');
+const gptInput = document.getElementById('gpt-input');
+
+// Define the context for the bot (safe to keep this client-side)
+const systemContext = `אתה בוט עוזר באתר \"שירה תיירות\" – סוכנות תיירות מובילה בישראל. תענה על שאלות הקשורות לדילים, טיסות, חבילות נופש, חופשות זוגיות ומשפחתיות. תציע הצטרפות לקבוצה, צור קשר, או שיחת ייעוץ. תשובות בעברית, קצרות וממוקדות.`;
+
+// Function to toggle chat visibility
+function toggleGptChat() {
+    if (!gptChatWidget || !gptChatToggle) return; // Add checks
+    if (gptChatWidget.classList.contains('visible')) {
+        gptChatWidget.classList.remove('visible');
+        gptChatToggle.classList.remove('hidden');
+    } else {
+        gptChatWidget.classList.add('visible');
+        gptChatToggle.classList.add('hidden');
+        if (gptInput) gptInput.focus(); // Focus input when opening
+    }
+}
+
+// Function to append messages to the chat body
+function appendGptMessage(role, text) {
+    if (!gptChatBody) return;
+    const msg = document.createElement("div");
+    msg.classList.add('gpt-message');
+    msg.classList.add(role); // 'user', 'bot', 'error', 'loading'
+    msg.innerText = text;
+    gptChatBody.appendChild(msg);
+    gptChatBody.scrollTop = gptChatBody.scrollHeight; // Scroll to bottom
+    return msg; // Return the message element if needed
+}
+
+// Function to handle sending a message (SAFE VERSION - NO API KEY)
+async function sendGptMessage() {
+    if (!gptInput || !gptChatBody) return;
+    const message = gptInput.value.trim();
+    if (!message) return;
+
+    appendGptMessage("user", message);
+    gptInput.value = "";
+    const loadingMsg = appendGptMessage("bot", "...חושב על תשובה"); // Add loading state
+    loadingMsg.classList.add('loading');
+
+    // ** IMPORTANT: API Call Simulation / Backend Call Placeholder **
+    // Simulating a delay and a placeholder response:
+    setTimeout(() => {
+        if (loadingMsg) { // Check if loadingMsg still exists
+            loadingMsg.innerText = "כרגע אין לי אפשרות להתחבר לשירות החכם. נסה שוב מאוחר יותר, או צור קשר עם הסוכנות ישירות."; 
+            loadingMsg.classList.remove('loading');
+            loadingMsg.classList.add('error'); // Style as error
+            gptChatBody.scrollTop = gptChatBody.scrollHeight;
+        }
+    }, 1500); // Simulate 1.5 second delay
+}
+
+// Close chat if Escape key is pressed
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && gptChatWidget && gptChatWidget.classList.contains('visible')) {
+        toggleGptChat();
+    }
+});
+
+// Ensure elements exist before adding event listeners that depend on them
+document.addEventListener('DOMContentLoaded', () => {
+    // Add listener for Enter key in chat input
+    if (gptInput) {
+        gptInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendGptMessage();
+            }
+        });
+    }
+    // Add listeners for toggle buttons (if needed beyond inline onclick)
+    // if (gptChatToggle) { ... }
+    // if (document.getElementById('gpt-chat-header')) { ... }
+});
+
+// --- End GPT Chat Widget Logic ---
+
 // ... rest of the code ... 

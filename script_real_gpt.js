@@ -1,8 +1,8 @@
 // GPT-Connected Chat Widget
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Direct API URL - no proxies
-  const API_URL = "https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat";
+  // Direct API URL - Updated Vercel deployment URL
+  const API_URL = "https://orelagantmoney-om8rysjtc-orelil123s-projects.vercel.app/api/chat";
   const client_id = "shira_tours";
 
   function createChatElements() {

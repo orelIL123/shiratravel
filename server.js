@@ -8,40 +8,64 @@ const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url);
     let filePath = '.' + parsedUrl.pathname;
     
-    // Handle proxy requests
-    if (req.method === 'POST' && parsedUrl.pathname === '/proxy-api/chat') {
-        let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
-        });
+    if (parsedUrl.pathname === '/proxy-api/chat') {
+        // Handle CORS for API requests
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         
-        req.on('end', () => {
-            const options = {
-                hostname: 'orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app',
-                path: '/api/chat',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Content-Length': Buffer.byteLength(body)
-                }
-            };
-            
-            const proxyReq = https.request(options, proxyRes => {
-                res.writeHead(proxyRes.statusCode, proxyRes.headers);
-                proxyRes.pipe(res);
+        // Handle OPTIONS request (preflight)
+        if (req.method === 'OPTIONS') {
+            res.writeHead(200);
+            res.end();
+            return;
+        }
+        
+        // For POST requests
+        if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
             });
             
-            proxyReq.on('error', error => {
-                console.error('Proxy request error:', error);
-                res.writeHead(500);
-                res.end(JSON.stringify({ error: 'שגיאת שרת בפרוקסי' }));
+            req.on('end', () => {
+                console.log('Forwarding request to Vercel API');
+                
+                const options = {
+                    hostname: 'orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app',
+                    path: '/api/chat',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Content-Length': Buffer.byteLength(body)
+                    }
+                };
+                
+                const proxyReq = https.request(options, proxyRes => {
+                    let responseData = '';
+                    
+                    proxyRes.on('data', chunk => {
+                        responseData += chunk;
+                    });
+                    
+                    proxyRes.on('end', () => {
+                        res.writeHead(proxyRes.statusCode, { 'Content-Type': 'application/json' });
+                        res.end(responseData);
+                    });
+                });
+                
+                proxyReq.on('error', error => {
+                    console.error('Proxy error:', error);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'שגיאת שרת פרוקסי' }));
+                });
+                
+                proxyReq.write(body);
+                proxyReq.end();
             });
             
-            proxyReq.write(body);
-            proxyReq.end();
-        });
-        
-        return;
+            return;
+        }
     }
     
     // Handle static files
@@ -58,7 +82,7 @@ const server = http.createServer((req, res) => {
         '.png': 'image/png',
         '.jpg': 'image/jpg',
         '.gif': 'image/gif',
-        '.svg': 'application/image/svg+xml'
+        '.svg': 'image/svg+xml'
     };
     
     const contentType = mimeTypes[extname] || 'application/octet-stream';

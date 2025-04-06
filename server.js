@@ -1,74 +1,9 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
-const url = require('url');
 
 const server = http.createServer((req, res) => {
-    const parsedUrl = url.parse(req.url);
-    let filePath = '.' + parsedUrl.pathname;
-    
-    if (parsedUrl.pathname === '/proxy-api/chat') {
-        // Handle CORS for API requests
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-        
-        // Handle OPTIONS request (preflight)
-        if (req.method === 'OPTIONS') {
-            res.writeHead(200);
-            res.end();
-            return;
-        }
-        
-        // For POST requests
-        if (req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => {
-                body += chunk.toString();
-            });
-            
-            req.on('end', () => {
-                console.log('Forwarding request to Vercel API');
-                
-                const options = {
-                    hostname: 'orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app',
-                    path: '/api/chat',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(body)
-                    }
-                };
-                
-                const proxyReq = https.request(options, proxyRes => {
-                    let responseData = '';
-                    
-                    proxyRes.on('data', chunk => {
-                        responseData += chunk;
-                    });
-                    
-                    proxyRes.on('end', () => {
-                        res.writeHead(proxyRes.statusCode, { 'Content-Type': 'application/json' });
-                        res.end(responseData);
-                    });
-                });
-                
-                proxyReq.on('error', error => {
-                    console.error('Proxy error:', error);
-                    res.writeHead(500, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ error: 'שגיאת שרת פרוקסי' }));
-                });
-                
-                proxyReq.write(body);
-                proxyReq.end();
-            });
-            
-            return;
-        }
-    }
-    
-    // Handle static files
+    let filePath = '.' + req.url;
     if (filePath === './') {
         filePath = './index.html';
     }
@@ -90,8 +25,21 @@ const server = http.createServer((req, res) => {
     fs.readFile(filePath, (error, content) => {
         if (error) {
             if (error.code === 'ENOENT') {
-                res.writeHead(404);
-                res.end('File not found');
+                // Return index.html for SPA-like behavior or 404
+                if (extname === '') {
+                  fs.readFile('./index.html', (err, indexContent) => {
+                    if (err) {
+                      res.writeHead(500);
+                      res.end('Server error loading index.html');
+                    } else {
+                      res.writeHead(200, { 'Content-Type': 'text/html' });
+                      res.end(indexContent, 'utf-8');
+                    }
+                  });
+                } else {
+                  res.writeHead(404);
+                  res.end('File not found: ' + filePath);
+                }
             } else {
                 res.writeHead(500);
                 res.end('Server error: ' + error.code);

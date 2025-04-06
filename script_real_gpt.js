@@ -1,7 +1,7 @@
 // GPT-Connected Chat Widget
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Direct API URL - for testing Vercel endpoint directly
+  // Direct API URL - no proxies
   const API_URL = "https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat";
   const client_id = "shira_tours";
 
@@ -114,11 +114,12 @@ document.addEventListener("DOMContentLoaded", function () {
           const data = await response.json();
           chatBody.lastChild.textContent = data.reply || "לא התקבלה תשובה";
         } else {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          console.error(`HTTP error! status: ${response.status}, Status text: ${response.statusText}`);
+          chatBody.lastChild.textContent = `שגיאה בשליחה: ${response.statusText} (${response.status})`;
         }
       } catch (error) {
-        console.error("Error sending message:", error);
-        chatBody.lastChild.textContent = "שגיאה בשליחה לשרת. נסה שוב מאוחר יותר.";
+        console.error("Error sending message (network/CORS):", error);
+        chatBody.lastChild.textContent = "שגיאה בשליחה לשרת. בדוק קונסול וחיבור רשת.";
       }
     }
 

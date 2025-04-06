@@ -1,11 +1,8 @@
 // GPT-Connected Chat Widget
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Use a public CORS proxy service
-  const CORS_PROXY = "https://thingproxy.freeboard.io/fetch/";
-  const VERCEL_API = "https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat";
-  const API_URL = CORS_PROXY + VERCEL_API;
-  
+  // Direct API URL - for testing Vercel endpoint directly
+  const API_URL = "https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat";
   const client_id = "shira_tours";
 
   function createChatElements() {

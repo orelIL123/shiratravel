@@ -1,9 +1,22 @@
 // GPT-Connected Chat Widget
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Use local proxy to avoid CORS issues
-  const API_URL = "/proxy-api/chat";
+  // Check if running on GitHub Pages or locally
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  
+  // If on GitHub Pages, use CORS-anywhere proxy for Vercel API, otherwise use the local proxy
+  let API_URL = isGitHubPages 
+    ? "https://cors-anywhere.herokuapp.com/https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat" 
+    : "/proxy-api/chat";
+  
   const client_id = "shira_tours";
+
+  // Fallback APIs if primary fails
+  const API_URLS = [
+    isGitHubPages ? "https://cors-anywhere.herokuapp.com/https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat" : "/proxy-api/chat",
+    "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat"),
+    "https://corsproxy.io/?https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat"
+  ];
 
   function createChatElements() {
     const chatButton = document.createElement("div");
@@ -98,16 +111,52 @@ document.addEventListener("DOMContentLoaded", function () {
       chatInput.value = "";
       appendMessage("bot", "...");
 
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text, client_id })
-        });
-        const data = await res.json();
-        chatBody.lastChild.textContent = data.reply || "לא התקבלה תשובה";
-      } catch (err) {
-        chatBody.lastChild.textContent = "שגיאה בשליחה לשרת.";
+      // Try each API URL until one works
+      let success = false;
+      let apiIndex = 0;
+      let lastError = null;
+
+      while (!success && apiIndex < API_URLS.length) {
+        try {
+          // Get the current API URL
+          const currentAPI = API_URLS[apiIndex];
+          
+          // Prepare headers based on environment
+          const headers = { 
+            "Content-Type": "application/json" 
+          };
+          
+          // For CORS proxies, we might need different headers
+          if (currentAPI.includes('allorigins')) {
+            // AllOrigins requires a GET with the payload in URL
+            const res = await fetch(currentAPI, { method: "GET" });
+            const data = await res.json();
+            chatBody.lastChild.textContent = data.reply || "לא התקבלה תשובה";
+            success = true;
+          } else {
+            // Regular POST request for other APIs
+            const res = await fetch(currentAPI, {
+              method: "POST",
+              headers: headers,
+              body: JSON.stringify({ message: text, client_id })
+            });
+            const data = await res.json();
+            chatBody.lastChild.textContent = data.reply || "לא התקבלה תשובה";
+            success = true;
+            
+            // Remember this successful API for future use
+            API_URL = currentAPI;
+          }
+        } catch (err) {
+          console.error(`API Error with ${API_URLS[apiIndex]}:`, err);
+          lastError = err;
+          apiIndex++;
+        }
+      }
+
+      if (!success) {
+        console.error("All APIs failed:", lastError);
+        chatBody.lastChild.textContent = "שגיאה בשליחה לשרת. ייתכן שיש בעיות עם CORS.";
       }
     }
 

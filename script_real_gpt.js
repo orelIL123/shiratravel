@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       appendMessage("bot", "...");
 
       try {
-        const response = await fetch("https://orelagantmoney-3sysfqntf-orelil123s-projects.vercel.app/api/chat", {
+        const response = await fetch("https://orelagantmoney-4u4h3j696-orelil123s-projects.vercel.app/api/chat", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   const API_URL = "/api/chat";
-  const client_id = "shira_tours";
+  const client_id = document.currentScript?.dataset?.client || "default";
 
   const chatButton = document.createElement("div");
   chatButton.innerHTML = "💬";

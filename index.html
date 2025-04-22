@@ -38,7 +38,7 @@
     <!-- Hero Section -->
     <section id="hero">
         <!-- Static Background Image -->
-        <img src="images/plane1.png" alt="מטוס טס בין עננים" class="hero-background-image">
+        <img src="images/a-photograph-of-a-modern-passenger-airpl_C7i_GXBrQJi5wzk-oNiz0A_CdTqAPYYQrKpY-e1TXj8pQ.jpeg" alt="מטוס נוסעים מודרני" class="hero-background-image">
 
         <!-- Text Content -->
         <div class="hero-content">
@@ -412,6 +412,86 @@
         </div>
     </div>
     <script id="vegos-chat-widget-script" src="https://gpt-chat-live.vercel.app/widget.js" data-client-id="shira_tours" defer></script>
+    <script>
+        // Mobile Menu Toggle Logic
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileNavToggle && navLinks) {
+            mobileNavToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileNavToggle.classList.toggle('active'); // Optional: for styling the button itself (e.g., X icon)
+            });
+
+            // Close menu when a link is clicked (optional but good UX)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileNavToggle.classList.remove('active');
+                });
+            });
+        }
+
+        // Add other general scripts here if needed, like review slider, exit popup etc.
+        // Make sure functions like prevReview, nextReview, closeExitPopup, toggleTextSize, showTermsModal, closeTermsModal are defined somewhere.
+        // Placeholder for review slider logic (if not already present elsewhere)
+        let currentReviewIndex = 0;
+        const reviews = document.querySelectorAll('.review');
+        function showReview(index) {
+            reviews.forEach((review, i) => {
+                review.classList.remove('active');
+                if (i === index) {
+                    review.classList.add('active');
+                }
+            });
+        }
+        function nextReview() {
+            currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+            showReview(currentReviewIndex);
+        }
+        function prevReview() {
+            currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+            showReview(currentReviewIndex);
+        }
+        if (reviews.length > 0) {
+            showReview(currentReviewIndex); // Show the first review initially
+        }
+
+        // Placeholder for other functions if they are not defined in other scripts
+        function closeExitPopup() {
+            const popup = document.getElementById('exitPopup');
+            if (popup) popup.classList.remove('visible');
+        }
+        function toggleTextSize() { console.log('toggleTextSize called'); /* Implement logic */ }
+        function showTermsModal() {
+            const modal = document.getElementById('termsModal');
+            if (modal) modal.classList.add('visible');
+        }
+        function closeTermsModal() {
+            const modal = document.getElementById('termsModal');
+            if (modal) modal.classList.remove('visible');
+        }
+
+         // Exit Intent Logic (Basic example)
+         let mouseLeftPage = false;
+         document.addEventListener('mouseleave', function(e) {
+             if (e.clientY < 0 && !sessionStorage.getItem('exitPopupShown')) { // Checks if mouse left towards top
+                 const popup = document.getElementById('exitPopup');
+                 if (popup) {
+                     popup.classList.add('visible');
+                     sessionStorage.setItem('exitPopupShown', 'true'); // Prevent showing again in the same session
+                     mouseLeftPage = true; // Flag that mouse has left
+                 }
+             }
+         });
+
+         // Optional: Prevent immediate re-trigger if mouse quickly returns
+         document.addEventListener('mouseenter', function(e) {
+              // Reset flag or add delay logic if needed
+         });
+
+
+    </script>
 </body>
 </html>
 

@@ -252,11 +252,21 @@ header {
 #hero {
     position: relative;
     height: 100vh;
+    max-height: 800px; /* מגביל את הגובה המקסימלי בזום גבוה */
+    min-height: 500px; /* מבטיח גובה מינימלי בזום נמוך */
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
+    /* Override general section styles to make it full width */
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
 }
 
 /* Overlay to enhance text readability */
@@ -289,6 +299,7 @@ header {
     text-align: center;
     padding: 2rem;
     max-width: 1200px;
+    width: 90%; /* מגביל את הרוחב כדי למנוע גלישה בזום */
 }
 
 .hero-text-container {
@@ -299,7 +310,7 @@ header {
 
 /* Title styles */
 .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 6vw, 5rem); /* יותר מוגבל בגדלים */
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1.5rem;
@@ -842,6 +853,7 @@ header {
     perspective: 1200px;
     transform-style: preserve-3d;
     transform-origin: center center;
+    touch-action: pan-y; /* Prevent pinch zoom on mobile */
 }
 
 /* Add 3D ground effect */
@@ -878,6 +890,8 @@ header {
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
+    user-select: none; /* Prevent text selection on mobile */
+    touch-action: pan-y; /* Prevent zoom on touch */
 }
 
 .category-card-inner {
@@ -915,7 +929,7 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.85;
+    opacity: 0.9; /* Increased from 0.85 to be less transparent */
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
@@ -1037,25 +1051,43 @@ header {
     pointer-events: none;
 }
 
-/* Make responsive */
+/* Add these responsive improvements for mobile */
 @media (max-width: 768px) {
     .categories-3d-container {
-        height: 500px;
+        height: 450px; /* Smaller height on mobile */
     }
     
     .category-card {
-        width: 250px;
-        height: 350px;
-        margin-left: -125px;
-        margin-top: -175px;
+        width: 240px; /* Smaller cards on mobile */
+        height: 320px;
+        margin-left: -120px;
+        margin-top: -160px;
+        touch-action: manipulation; /* Better touch handling */
+    }
+    
+    .category-card-front::before {
+        font-size: 1.5rem; /* Smaller text on mobile */
     }
     
     .category-content h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     
     .category-content p {
         font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .carousel-control {
+        width: 40px; /* Larger touch targets */
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2); /* More visible on dark background */
+    }
+
+    /* Add this to make the whole carousel area scrollable instead of zoomable */
+    #categories-showcase {
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
     }
 }
 
@@ -1514,7 +1546,6 @@ footer {
 
 /* Exit Popup Styles */
 .exit-popup { /* This is now the overlay */
-    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;

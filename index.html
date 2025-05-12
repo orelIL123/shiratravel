@@ -448,11 +448,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Accessibility Button -->
-    <button class="accessibility-button" aria-label="הגדלת טקסט" onclick="toggleTextSize()">
-        <i class="fas fa-text-height"></i>
-    </button>
-
     <!-- Terms of Use Modal -->
     <div class="terms-modal" id="termsModal">
         <div class="terms-content">
@@ -545,6 +540,20 @@
               // Reset flag or add delay logic if needed
          });
 
+         // Add ESC key support for exit popup
+         document.addEventListener('keydown', function(e) {
+             // Check if ESC key was pressed
+             if (e.key === "Escape" || e.keyCode === 27) {
+                 // Show popup if not shown already in this session
+                 if (!sessionStorage.getItem('exitPopupShown')) {
+                     const popup = document.getElementById('exitPopup');
+                     if (popup) {
+                         popup.classList.add('visible');
+                         sessionStorage.setItem('exitPopupShown', 'true');
+                     }
+                 }
+             }
+         });
 
     </script>
 
@@ -940,6 +949,71 @@
                 if(heroHeading) gsap.set(heroHeading, { opacity: 1, y: 0 });
             }
         });
+    </script>
+
+    <!-- Enhanced Exit Popup & Interactive Hero Integration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize exit popup enhancements
+            initExitPopupEnhancements();
+        });
+
+        function initExitPopupEnhancements() {
+            // ESC key event to trigger exit popup
+            document.addEventListener('keydown', function(e) {
+                // Check if ESC key was pressed (key code 27)
+                if (e.key === "Escape" || e.keyCode === 27) {
+                    // Only show if not already shown in this session
+                    if (!sessionStorage.getItem('exitPopupShown')) {
+                        const popup = document.getElementById('exitPopup');
+                        if (popup) {
+                            popup.classList.add('visible');
+                            sessionStorage.setItem('exitPopupShown', 'true');
+                        }
+                    }
+                }
+            });
+
+            // Enhance the existing closeExitPopup function to work with GSAP
+            window.closeExitPopup = function() {
+                const popup = document.getElementById('exitPopup');
+                if (popup) {
+                    // Add a nice fade-out animation with GSAP
+                    gsap.to(popup, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.out",
+                        onComplete: () => {
+                            popup.classList.remove('visible');
+                            // Reset opacity for next time
+                            gsap.set(popup, { opacity: 1 });
+                        }
+                    });
+                }
+            };
+
+            // Enhance the exit popup appearance
+            const exitPopup = document.getElementById('exitPopup');
+            if (exitPopup) {
+                const exitPopupContent = exitPopup.querySelector('.exit-popup-content');
+                
+                if (exitPopupContent) {
+                    // Add a nice entrance animation when the popup becomes visible
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                            if (mutation.target.classList.contains('visible')) {
+                                gsap.fromTo(exitPopupContent, 
+                                    { scale: 0.8, opacity: 0 },
+                                    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+                                );
+                            }
+                        });
+                    });
+                    
+                    observer.observe(exitPopup, { attributes: true, attributeFilter: ['class'] });
+                }
+            }
+        }
     </script>
 
 </body>

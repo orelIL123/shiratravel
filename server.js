@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
     if (filePath === './') {
         filePath = './index.html';
     }
-    
+
     const extname = String(path.extname(filePath)).toLowerCase();
     const mimeTypes = {
         '.html': 'text/html',
@@ -19,9 +19,9 @@ const server = http.createServer((req, res) => {
         '.gif': 'image/gif',
         '.svg': 'image/svg+xml'
     };
-    
+
     const contentType = mimeTypes[extname] || 'application/octet-stream';
-    
+
     fs.readFile(filePath, (error, content) => {
         if (error) {
             if (error.code === 'ENOENT') {
@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
                     }
                   });
                 } else {
-                  res.writeHead(404);
+                res.writeHead(404);
                   res.end('File not found: ' + filePath);
                 }
             } else {

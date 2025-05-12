@@ -35,46 +35,101 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Fullscreen Immersive -->
     <section id="hero">
-        <!-- Static Background Image -->
-        <img src="images/a-photograph-of-a-modern-passenger-airpl_C7i_GXBrQJi5wzk-oNiz0A_CdTqAPYYQrKpY-e1TXj8pQ.jpeg" alt="מטוס נוסעים מודרני" class="hero-background-image">
-
-        <!-- Text Content -->
+        <!-- Shadow overlay for text readability -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Fullscreen background image -->
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="חוף ים טרופי מדהים" class="hero-background-image">
+        
+        <!-- Text Content with simple style -->
         <div class="hero-content">
             <div class="hero-text-container">
-                <h1>ברוכים הבאים לחופשה המושלמת שלך</h1>
+                <h1 class="hero-title">ברוכים הבאים לחופשה המושלמת שלך</h1>
+                <p class="hero-subtitle">הרפתקאות חדשות ממתינות לך מעבר לאופק</p>
+                <div class="hero-buttons">
+                    <a href="#destinations-showcase" class="hero-cta primary">גלה יעדים</a>
+                    <a href="#contact" class="hero-cta secondary">דבר איתנו</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Categories Section - Restructured -->
+    <!-- Categories Section - Restructured for 3D -->
     <section id="categories-showcase">
         <h2>סוגי החופשות שאנו מציעים</h2>
-        <div class="category-screens">
-            <!-- Family Vacations -->
-            <div class="category-screen family">
-                <div class="category-content">
-                    <h3>חופשות משפחתיות</h3>
-                    <p>חוויות בלתי נשכחות ומהנות לכל המשפחה, ביעדים המותאמים במיוחד לילדים ולצרכים שלכם.</p>
-                    <a href="#contact" class="category-cta">תכנון חופשה משפחתית</a>
+        <div class="categories-3d-container">
+            <div class="categories-3d-carousel">
+                <!-- Family Vacations -->
+                <div class="category-card" data-category="family">
+                    <div class="category-card-inner">
+                        <div class="category-card-front">
+                            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=600&h=400&q=80" alt="חופשות משפחתיות">
+                        </div>
+                        <div class="category-card-back">
+                            <div class="category-content">
+                                <h3>חופשות משפחתיות</h3>
+                                <p>חוויות בלתי נשכחות ומהנות לכל המשפחה, ביעדים המותאמים במיוחד לילדים ולצרכים שלכם.</p>
+                                <a href="#contact" class="category-cta">תכנון חופשה משפחתית</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Couples Vacations -->
+                <div class="category-card" data-category="couples">
+                    <div class="category-card-inner">
+                        <div class="category-card-front">
+                            <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&h=400&q=80" alt="חופשות זוגיות">
+                        </div>
+                        <div class="category-card-back">
+                            <div class="category-content">
+                                <h3>חופשות זוגיות</h3>
+                                <p>בריחה רומנטית ליעדים קסומים, מלונות מפנקים ואווירה מושלמת לרגעים שלכם ביחד.</p>
+                                <a href="#contact" class="category-cta">תכנון חופשה זוגית</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backpackers Trips -->
+                <div class="category-card" data-category="backpackers">
+                    <div class="category-card-inner">
+                        <div class="category-card-front">
+                            <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=600&h=400&q=80" alt="טיולי תרמילאים">
+                        </div>
+                        <div class="category-card-back">
+                            <div class="category-content">
+                                <h3>טיולי תרמילאים</h3>
+                                <p>הרפתקאות מסעירות ברחבי העולם, מסלולים מותאמים אישית ותמיכה לאורך כל הדרך.</p>
+                                <a href="#contact" class="category-cta">תכנון טיול תרמילאים</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Adventure Tours (added a 4th item for better 3D effect) -->
+                <div class="category-card" data-category="adventure">
+                    <div class="category-card-inner">
+                        <div class="category-card-front">
+                            <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&h=400&q=80" alt="טיולי אקסטרים">
+                        </div>
+                        <div class="category-card-back">
+                            <div class="category-content">
+                                <h3>טיולי אקסטרים</h3>
+                                <p>חוויות אדרנלין בלתי נשכחות. טיולי ג'יפים, טרקים, צניחה חופשית, רפטינג ועוד פעילויות מאתגרות.</p>
+                                <a href="#contact" class="category-cta">תכנון טיול אקסטרים</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Couples Vacations -->
-            <div class="category-screen couples">
-                <div class="category-content">
-                    <h3>חופשות זוגיות</h3>
-                    <p>בריחה רומנטית ליעדים קסומים, מלונות מפנקים ואווירה מושלמת לרגעים שלכם ביחד.</p>
-                    <a href="#contact" class="category-cta">תכנון חופשה זוגית</a>
-                </div>
-            </div>
-            <!-- Backpackers Trips -->
-            <div class="category-screen backpackers">
-                <div class="category-content">
-                    <h3>טיולי תרמילאים</h3>
-                    <p>הרפתקאות מסעירות ברחבי העולם, מסלולים מותאמים אישית ותמיכה לאורך כל הדרך.</p>
-                    <a href="#contact" class="category-cta">תכנון טיול תרמילאים</a>
-                </div>
+            
+            <!-- Navigation controls for the carousel -->
+            <div class="carousel-controls">
+                <button class="carousel-control prev" aria-label="קטגוריה קודמת"><i class="fas fa-chevron-right"></i></button>
+                <button class="carousel-control next" aria-label="קטגוריה הבאה"><i class="fas fa-chevron-left"></i></button>
             </div>
         </div>
     </section>
@@ -492,6 +547,401 @@
 
 
     </script>
+
+    <!-- GSAP Core & ScrollTrigger Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+    <!-- Smooth Scroll & Reveal Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Register GSAP plugins
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+            
+            // Smooth scroll to sections when clicking nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: {
+                            y: targetId,
+                            offsetY: 80
+                        },
+                        ease: "power3.inOut"
+                    });
+                });
+            });
+            
+            // Hero section parallax
+            const heroSection = document.querySelector('#hero');
+            const heroImage = document.querySelector('.hero-background-image');
+            if (heroSection && heroImage) {
+                ScrollTrigger.create({
+                    trigger: heroSection,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                    onUpdate: self => {
+                        gsap.to(heroImage, {
+                            y: self.progress * 150,
+                            ease: "none",
+                            overwrite: "auto"
+                        });
+                    }
+                });
+            }
+            
+            // Reveal animation for section titles
+            gsap.utils.toArray('section h2').forEach(title => {
+                ScrollTrigger.create({
+                    trigger: title,
+                    start: "top 80%",
+                    once: true,
+                    onEnter: () => {
+                        gsap.fromTo(title, 
+                            { y: 50, opacity: 0 },
+                            { 
+                                y: 0, 
+                                opacity: 1, 
+                                duration: 0.8, 
+                                ease: "back.out(1.7)" 
+                            }
+                        );
+                    }
+                });
+            });
+            
+            // Staggered reveal for cards (deals, team members, etc.)
+            const revealSections = [
+                { selector: '.deal-card', stagger: 0.15 },
+                { selector: '.team-member', stagger: 0.15 },
+                { selector: '.about-content', stagger: 0 },
+                { selector: '.benefit-item', stagger: 0.1 }
+            ];
+            
+            revealSections.forEach(section => {
+                const elements = document.querySelectorAll(section.selector);
+                if (elements.length > 0) {
+                    ScrollTrigger.create({
+                        trigger: elements[0].parentElement,
+                        start: "top 75%",
+                        once: true,
+                        onEnter: () => {
+                            gsap.fromTo(elements, 
+                                { y: 100, opacity: 0 },
+                                { 
+                                    y: 0, 
+                                    opacity: 1, 
+                                    duration: 1, 
+                                    stagger: section.stagger, 
+                                    ease: "power3.out" 
+                                }
+                            );
+                        }
+                    });
+                }
+            });
+            
+            // Parallax for background elements
+            gsap.utils.toArray('.destination-screen').forEach(section => {
+                const bg = section.style.backgroundImage;
+                if (bg) {
+                    ScrollTrigger.create({
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                        onUpdate: self => {
+                            // Apply parallax effect to background
+                            section.style.backgroundPosition = `center ${-self.progress * 20}%`;
+                        }
+                    });
+                }
+            });
+            
+            // Add scale-in effect for reviews
+            const reviewContainer = document.querySelector('.review-slider-container');
+            if (reviewContainer) {
+                ScrollTrigger.create({
+                    trigger: reviewContainer,
+                    start: "top 80%",
+                    once: true,
+                    onEnter: () => {
+                        gsap.fromTo(reviewContainer,
+                            { scale: 0.8, opacity: 0 },
+                            { 
+                                scale: 1, 
+                                opacity: 1, 
+                                duration: 1,
+                                ease: "elastic.out(1, 0.5)" 
+                            }
+                        );
+                    }
+                });
+            }
+            
+            // Advanced scroll animation for footer
+            const footer = document.querySelector('footer');
+            if (footer) {
+                const footerSections = footer.querySelectorAll('.footer-section');
+                ScrollTrigger.create({
+                    trigger: footer,
+                    start: "top 90%",
+                    once: true,
+                    onEnter: () => {
+                        gsap.fromTo(footerSections,
+                            { y: 50, opacity: 0 },
+                            { 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.1,
+                                duration: 0.8, 
+                                ease: "power2.out" 
+                            }
+                        );
+                    }
+                });
+            }
+            
+            // Page transition effect
+            window.addEventListener('load', () => {
+                gsap.fromTo(
+                    'body',
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.6, ease: 'power2.out' }
+                );
+            });
+        });
+    </script>
+
+    <!-- Old animation scripts - keeping for reference -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+            
+            // Get the hero elements for animation
+            const heroSection = document.querySelector('#hero');
+            const bgImage = document.querySelector('.hero-background-image');
+            
+            // Simple parallax for hero on scroll
+            if (heroSection && bgImage) {
+                ScrollTrigger.create({
+                    trigger: heroSection,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                    onUpdate: (self) => {
+                        // Parallax the background image when scrolling
+                        gsap.to(bgImage, {
+                            y: self.progress * 100, // Moves down as you scroll
+                            ease: "none",
+                            overwrite: "auto"
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- 3D Carousel Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // 3D Carousel variables
+            const carousel = document.querySelector('.categories-3d-carousel');
+            const cards = document.querySelectorAll('.category-card');
+            const cardsCount = cards.length;
+            const prevBtn = document.querySelector('.carousel-control.prev');
+            const nextBtn = document.querySelector('.carousel-control.next');
+            let radius, theta;
+            let currentIndex = 0;
+            
+            // Setup card titles on front
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const frontFace = card.querySelector('.category-card-front');
+                const title = card.querySelector('.category-content h3').textContent;
+                frontFace.setAttribute('data-title', title);
+            });
+            
+            // Function to calculate radius based on card size and count
+            function calculateLayout() {
+                // Use slightly more than card width for a good spacing
+                radius = (window.innerWidth < 768) ? 250 : 300;
+                theta = 360 / cardsCount;
+                
+                // Initial positioning
+                positionCards(currentIndex);
+            }
+            
+            // Function to position all cards in a circle
+            function positionCards(startIndex) {
+                cards.forEach((card, i) => {
+                    // Calculate angle for this card (0 to 360 degrees)
+                    const angle = theta * (i - startIndex);
+                    const angleRadians = angle * Math.PI / 180;
+                    
+                    // Calculate position on the circle
+                    const x = radius * Math.sin(angleRadians);
+                    const z = radius * Math.cos(angleRadians) - radius;
+                    
+                    // Calculate scale and opacity based on z-position
+                    const scale = mapRange(z, -radius, radius, 0.7, 1);
+                    const opacity = mapRange(z, -radius, radius, 0.6, 1);
+                    
+                    // Apply transform
+                    gsap.to(card, {
+                        duration: 1,
+                        x: x,
+                        z: z,
+                        scale: scale,
+                        opacity: opacity,
+                        ease: "power3.out",
+                        // Bring focused card to front with higher z-index
+                        zIndex: z < -100 ? 1 : 10
+                    });
+                    
+                    // Apply a slight rotation to cards for a more dynamic feel
+                    gsap.to(card, { 
+                        duration: 1, 
+                        rotationY: angle * 0.1,
+                        ease: "power3.out"
+                    });
+                });
+            }
+            
+            // Helper function to map a range of values to another range
+            function mapRange(value, inMin, inMax, outMin, outMax) {
+                return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+            }
+            
+            // Navigation functions
+            function goToPrev() {
+                currentIndex = (currentIndex - 1 + cardsCount) % cardsCount;
+                positionCards(currentIndex);
+            }
+            
+            function goToNext() {
+                currentIndex = (currentIndex + 1) % cardsCount;
+                positionCards(currentIndex);
+            }
+            
+            // Event listeners
+            if(prevBtn) prevBtn.addEventListener('click', goToPrev);
+            if(nextBtn) nextBtn.addEventListener('click', goToNext);
+            
+            // Auto-rotate slowly if no interaction
+            let autoRotateInterval = setInterval(goToNext, 4000);
+            
+            // Stop auto-rotation on user interaction
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoRotateInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                autoRotateInterval = setInterval(goToNext, 4000);
+            });
+            
+            // Allow direct clicking on cards to bring them to front
+            cards.forEach((card, i) => {
+                card.addEventListener('click', (e) => {
+                    // Only rotate carousel if clicking on the front
+                    if(!e.target.closest('.category-card-back')) {
+                        const cardIndex = Array.from(cards).indexOf(card);
+                        const diff = (cardIndex - currentIndex + cardsCount) % cardsCount;
+                        
+                        // If clicking a card that's not in focus
+                        if(diff !== 0) {
+                            // Calculate shortest path to bring clicked card to front
+                            if(diff <= cardsCount/2) {
+                                // Go forward
+                                for(let j=0; j<diff; j++) {
+                                    setTimeout(() => goToNext(), j*150);
+                                }
+                            } else {
+                                // Go backward
+                                for(let j=0; j<(cardsCount-diff); j++) {
+                                    setTimeout(() => goToPrev(), j*150);
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Scroll trigger
+            ScrollTrigger.create({
+                trigger: "#categories-showcase",
+                start: "top 80%",
+                onEnter: () => {
+                    // Add entrance animation when section appears
+                    gsap.from(carousel, {
+                        opacity: 0,
+                        scale: 0.8,
+                        duration: 1,
+                        ease: "power3.out"
+                    });
+                    
+                    // Initial setup and position after it's visible
+                    calculateLayout();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', calculateLayout);
+            
+            // Initial setup
+            calculateLayout();
+        });
+    </script>
+
+    <!-- Color Wipe Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // No need to register ScrollTrigger if animation runs on load
+
+            const panels = document.querySelectorAll('#hero .wipe-panel');
+            const heroHeading = document.querySelector('#hero .hero-content h1');
+
+            if (panels.length > 0 && heroHeading) {
+                gsap.set(heroHeading, { opacity: 0, y: 30 }); // Ensure initial state
+
+                const tl = gsap.timeline({
+                    // Add a small delay before starting
+                    delay: 0.2
+                });
+
+                // Animate panels scaling down
+                tl.to(panels, {
+                    scaleY: 0,
+                    duration: 0.8, // Speed of the wipe
+                    stagger: 0.15, // Delay between each panel animation
+                    ease: "power3.inOut"
+                })
+                // Animate heading fading/sliding in AFTER panels finish
+                .to(heroHeading, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.0, // Speed of heading reveal
+                    ease: "power3.out"
+                }, "-=0.4"); // Start heading animation slightly before panels fully disappear
+
+            } else {
+                console.error("GSAP Color Wipe Error: Could not find required elements (.wipe-panel, #hero h1).");
+                // Fallback: If panels/heading not found, ensure heading is visible
+                if(heroHeading) gsap.set(heroHeading, { opacity: 1, y: 0 });
+            }
+        });
+    </script>
+
 </body>
 </html>
 

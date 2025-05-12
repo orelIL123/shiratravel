@@ -43,6 +43,13 @@
         <!-- Fullscreen background image -->
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="חוף ים טרופי מדהים" class="hero-background-image">
         
+        <!-- Interactive Floating Elements -->
+        <div class="hero-floating-elements">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+        </div>
+        
         <!-- Text Content with simple style -->
         <div class="hero-content">
             <div class="hero-text-container">
@@ -1013,6 +1020,84 @@
                     observer.observe(exitPopup, { attributes: true, attributeFilter: ['class'] });
                 }
             }
+        }
+    </script>
+
+    <!-- Mouse Interaction for Hero Section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize hero mouse interactions
+            initHeroMouseInteraction();
+        });
+
+        function initHeroMouseInteraction() {
+            const hero = document.querySelector('#hero');
+            if (!hero) return;
+
+            const heroImage = document.querySelector('.hero-background-image');
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const heroContent = document.querySelector('.hero-content');
+            
+            hero.addEventListener('mousemove', (e) => {
+                // Calculate mouse position as percentage of hero section
+                const rect = hero.getBoundingClientRect();
+                const mouseX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+                const mouseY = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+                
+                // Parallax effect on background image - subtle movement
+                if (heroImage) {
+                    gsap.to(heroImage, {
+                        duration: 1,
+                        x: mouseX * 30,
+                        y: mouseY * 30,
+                        ease: "power1.out"
+                    });
+                }
+                
+                // More pronounced movement on floating elements
+                floatingElements.forEach((element, index) => {
+                    // Each element moves at different speed/direction for depth effect
+                    const speedMultiplier = index === 0 ? 40 : (index === 1 ? 60 : 25);
+                    gsap.to(element, {
+                        duration: 1,
+                        x: mouseX * speedMultiplier,
+                        y: mouseY * speedMultiplier,
+                        rotation: mouseX * 5,
+                        ease: "power1.out"
+                    });
+                });
+                
+                // Subtle counter-movement of content for nice effect
+                if (heroContent) {
+                    gsap.to(heroContent, {
+                        duration: 1,
+                        x: mouseX * -15,
+                        y: mouseY * -15,
+                        ease: "power1.out"
+                    });
+                }
+            });
+            
+            // Initialize animations on load
+            initFloatingElements();
+        }
+        
+        function initFloatingElements() {
+            const elements = document.querySelectorAll('.floating-element');
+            
+            elements.forEach((element, index) => {
+                // Set initial floating animations for each element
+                gsap.to(element, {
+                    y: index % 2 === 0 ? '-=20' : '+=20',
+                    x: index % 2 === 0 ? '+=10' : '-=10',
+                    rotation: index % 2 === 0 ? 5 : -5,
+                    duration: 3 + index,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: index * 0.5
+                });
+            });
         }
     </script>
 

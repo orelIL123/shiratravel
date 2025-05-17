@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap');
 @import url('https://unpkg.com/aos@next/dist/aos.css');
 
 /* Custom Properties */
@@ -41,11 +41,25 @@ body, html {
     width: 100%;
     font-size: 16px; /* Base font size */
     font-family: var(--font-primary); /* Apply the default font */
+    font-weight: 900; /* Set default font weight to Black */
     line-height: 1.7; /* Restore line-height */
     direction: rtl; /* Restore direction */
     color: var(--text-color); /* Restore default text color */
     background-color: var(--neutral-light); /* Restore background */
     /* Removed gradient background for now, can be re-added if needed */
+}
+
+/* Update specific text elements to use appropriate weights */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 900; /* Black weight for headings */
+}
+
+p, span, a, button {
+    font-weight: 700; /* Bold weight for regular text */
+}
+
+.card-label, .card-button, .nav-links a {
+    font-weight: 900; /* Black weight for important UI elements */
 }
 
 /* Remove general body fade-in */
@@ -79,7 +93,7 @@ h2 {
     color: var(--neutral-dark);
     margin-bottom: 4rem;
     font-size: 2.2rem; /* Adjusted for mobile */
-    font-weight: 700;
+    font-weight: 900;
     position: relative;
     padding-bottom: 1.5rem;
 }
@@ -160,7 +174,7 @@ header {
     color: var(--neutral-dark);
     text-decoration: none;
     font-size: 1.3rem; /* Adjusted */
-    font-weight: 500;
+    font-weight: 900;
     transition: color 0.3s ease;
     padding: 0.5rem 1rem;
 }
@@ -248,180 +262,327 @@ header {
   }
 }
 
-/* Hero Section - Fullscreen Immersive */
+/* Hero Section - Modern Container Style */
 #hero {
     position: relative;
-    height: 100vh;
-    max-height: 800px; /* מגביל את הגובה המקסימלי בזום גבוה */
-    min-height: 500px; /* מבטיח גובה מינימלי בזום נמוך */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-    /* Override general section styles to make it full width */
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+    margin: 0;
     max-width: 100%;
     width: 100%;
-    margin: 0;
-    padding: 0;
     border-radius: 0;
     box-shadow: none;
     border: none;
+    overflow: hidden;
 }
 
-/* Overlay to enhance text readability */
-.hero-overlay {
+.hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
-    z-index: 1;
+    background: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1920&q=80') center/cover;
+    opacity: 0.15;
+    z-index: 0;
 }
 
-.hero-background-image {
+.floating-elements {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.element-1, .element-2, .element-3 {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(3px);
+    animation: float 6s infinite ease-in-out;
+}
+
+.element-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    right: 5%;
+    animation-delay: 0s;
+}
+
+.element-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 20%;
+    left: 10%;
+    animation-delay: -2s;
+}
+
+.element-3 {
+    width: 150px;
+    height: 150px;
+    top: 40%;
+    left: 30%;
+    animation-delay: -4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-top-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.hero-card {
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    aspect-ratio: 4/3;
+}
+
+.bottom-card {
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-card .card-image {
+    height: 60%;
+}
+
+.bottom-card .card-content {
+    padding: 20px;
+    background: var(--white);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.bottom-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--neutral-dark);
+}
+
+.bottom-card p {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.hero-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-label {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 900;
+    color: #000000;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hero-card:hover .card-label {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    z-index: 0;
-    filter: brightness(0.9) saturate(1.2);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Text Content */
-.hero-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    padding: 2rem;
-    max-width: 1200px;
-    width: 90%; /* מגביל את הרוחב כדי למנוע גלישה בזום */
+.hero-card:hover .card-image img {
+    transform: scale(1.1);
 }
 
-.hero-text-container {
-    max-width: 900px;
-    margin: 0 auto;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-}
-
-/* Title styles */
-.hero-title {
-    font-size: clamp(2.5rem, 6vw, 5rem); /* יותר מוגבל בגדלים */
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.hero-subtitle {
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeIn 1s 0.3s forwards ease-out;
-}
-
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeIn 1s 0.6s forwards ease-out;
-}
-
-.hero-cta {
-    display: inline-block;
-    padding: 1rem 3rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.hero-cta::before {
-    content: '';
+.card-button {
     position: absolute;
-    top: 0;
-    left: 0;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    color: #000000;
+    padding: 12px 24px;
+    border-radius: 20px;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.bottom-card .card-button {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 10px;
+}
+
+.card-button:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.bottom-card .card-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Center Card Styles */
+.center-card {
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.blob-mask {
+    position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(-100%) rotate(45deg);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: -1;
+    overflow: hidden;
+    clip-path: path('M 50,50 C 20,20 80,20 50,50 C 20,80 80,80 50,50 Z');
+    transition: all 0.4s ease;
 }
 
-.hero-cta:hover::before {
-    transform: translateX(0) rotate(0);
+.center-card:hover .blob-mask {
+    clip-path: path('M 50,50 C 30,30 70,30 50,50 C 30,70 70,70 50,50 Z');
 }
 
-.hero-cta.primary {
-    background: linear-gradient(45deg, var(--primary-color), #2980b9);
-    color: white;
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+.blob-mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.hero-cta.primary:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 7px 25px rgba(52, 152, 219, 0.6);
+.center-card:hover .blob-mask img {
+    transform: scale(1.1);
 }
 
-.hero-cta.secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+.center-headline {
+    position: relative;
+    z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    padding: 0 2rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
 }
 
-.hero-cta.secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 1);
-    transform: translateY(-5px);
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+.center-card:hover .center-headline {
+    transform: scale(1.05);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Make responsive */
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .hero-top-row {
+        gap: 16px;
+    }
+    
+    .center-headline {
+        font-size: 36px;
+    }
+}
+
 @media (max-width: 768px) {
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
+    #hero {
+        padding: 4rem 1rem;
     }
     
-    .hero-cta {
-        width: 80%;
-        text-align: center;
+    .hero-top-row {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
     
-    .floating-element {
-        opacity: 0.5; /* More subtle on mobile */
+    .hero-card {
+        aspect-ratio: 16/9;
     }
     
-    .element-1 {
-        width: 150px;
-        height: 150px;
+    .center-card {
+        aspect-ratio: 16/9;
     }
     
-    .element-2 {
-        width: 200px;
-        height: 200px;
+    .center-headline {
+        font-size: 32px;
     }
     
-    .element-3 {
-        width: 100px;
-        height: 100px;
+    .card-label {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .card-button {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+    
+    .bottom-card .card-content {
+        padding: 15px;
+    }
+    
+    .bottom-card h3 {
+        font-size: 20px;
+    }
+    
+    .bottom-card p {
+        font-size: 14px;
     }
 }
 

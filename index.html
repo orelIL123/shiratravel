@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="fullscreen.css">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -36,57 +36,52 @@
         </nav>
     </header>
 
-    <!-- Hero Section - Modern Container Style -->
-    <section id="hero">
-        <div class="hero-background">
-            <div class="floating-elements">
-                <div class="element-1"></div>
-                <div class="element-2"></div>
-                <div class="element-3"></div>
+    <!-- New Hero Section -->
+    <section id="hero" class="modern-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>חופשה מושלמת מתחילה כאן</h1>
+            <p class="hero-subtitle">מגלים עולם של אפשרויות</p>
+            <div class="hero-search">
+                <div class="search-box">
+                    <input type="text" placeholder="לאן תרצו לטוס?">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="quick-links">
+                    <a href="#deals" class="quick-link">
+                        <i class="fas fa-fire"></i>
+                        דילים חמים
+                    </a>
+                    <a href="#destinations-showcase" class="quick-link">
+                        <i class="fas fa-map-marked-alt"></i>
+                        יעדים מובילים
+                    </a>
+                    <a href="#contact" class="quick-link">
+                        <i class="fas fa-headset"></i>
+                        צור קשר
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="hero-container">
-            <!-- Top Row -->
-            <div class="hero-top-row">
-                <!-- Left Card -->
-                <article class="hero-card">
-                    <span class="card-label">חופשות משפחתיות</span>
-                    <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1770&q=80" alt="חופשה משפחתית">
-                    </div>
-                    <button class="card-button">לפרטים נוספים</button>
-                </article>
-
-                <!-- Center Card -->
-                <article class="hero-card center-card">
-                    <div class="blob-mask">
-                        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1770&q=80" alt="חופשה רומנטית">
-                    </div>
-                    <h1 class="center-headline">חופשה מושלמת מתחילה כאן</h1>
-                </article>
-
-                <!-- Right Card -->
-                <article class="hero-card">
-                    <span class="card-label">טיולי תרמילאים</span>
-                    <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1770&q=80" alt="טיול תרמילאים">
-                    </div>
-                    <button class="card-button">לפרטים נוספים</button>
-                </article>
+        <div class="hero-features">
+            <div class="feature">
+                <i class="fas fa-plane"></i>
+                <span>טיסות ישירות</span>
             </div>
-
-            <!-- Bottom Card -->
-            <article class="hero-card bottom-card">
-                <span class="card-label">חבילות נופש</span>
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1770&q=80" alt="חבילת נופש">
-                </div>
-                <div class="card-content">
-                    <h3>חבילות נופש מובחרות</h3>
-                    <p>טיסות, מלונות, סיורים והכל במחיר משתלם</p>
-                    <button class="card-button">לחבילות המובילות</button>
-                </div>
-            </article>
+            <div class="feature">
+                <i class="fas fa-hotel"></i>
+                <span>מלונות מובחרים</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <span>ביטוח נסיעות</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-headset"></i>
+                <span>תמיכה 24/7</span>
+            </div>
         </div>
     </section>
 

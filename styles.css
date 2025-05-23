@@ -2093,14 +2093,14 @@ footer {
 /* GPT Chat Widget Styles */
 #gpt-chat-widget {
     position: fixed;
-    bottom: 90px; /* Adjusted position to not overlap accessibility button */
+    bottom: 90px;
     left: 20px;
     width: 320px;
-    height: 450px; /* Slightly taller */
+    height: 450px;
     background: var(--white);
-    border-radius: var(--border-radius-lg); /* Consistent radius */
-    box-shadow: var(--shadow-lg); /* Consistent shadow */
-    display: none; /* Start hidden */
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: none;
     flex-direction: column;
     overflow: hidden;
     z-index: 9999;
@@ -2117,7 +2117,7 @@ footer {
 }
 
 #gpt-chat-header {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); /* Gradient header */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     color: white;
     padding: 12px 15px;
     font-weight: 600;
@@ -2135,7 +2135,6 @@ footer {
     background-color: var(--neutral-light);
 }
 
-/* Styling for messages */
 .gpt-message {
     margin-bottom: 10px;
     padding: 8px 12px;
@@ -2147,14 +2146,14 @@ footer {
 .gpt-message.user {
     background-color: var(--primary-light);
     color: var(--neutral-dark);
-    margin-left: auto; /* Align user messages to right */
+    margin-left: auto;
     text-align: left;
 }
 
 .gpt-message.bot {
     background-color: var(--white);
     color: var(--neutral-dark);
-    margin-right: auto; /* Align bot messages to left */
+    margin-right: auto;
     border: 1px solid var(--neutral-medium);
     text-align: right;
 }
@@ -2173,7 +2172,6 @@ footer {
     text-align: center;
     max-width: 100%;
 }
-
 
 #gpt-chat-input {
     display: flex;

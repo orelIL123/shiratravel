@@ -491,107 +491,119 @@
         </div>
     </div>
 
-    <!-- Chat Widget Script - Placed at the end of body -->
+    <!-- Chat Widget -->
     <div id="gpt-chat-widget">
-        <div id="gpt-chat-header">צ'אט עם שירה תיירות</div>
-        <div id="gpt-chat-body"></div>
-        <div id="gpt-chat-input">
-            <input type="text" id="gpt-input" placeholder="הקלד הודעה...">
-            <button onclick="sendGptMessage()">שלח</button>
+        <div id="gpt-chat-header">
+            <h3>צ'אט עם שירה תיירות</h3>
+            <button id="gpt-chat-close">×</button>
+        </div>
+        <div id="gpt-chat-body">
+            <div id="gpt-messages"></div>
+        </div>
+        <div id="gpt-chat-input-area">
+            <input type="text" id="gpt-chat-input" placeholder="הקלד הודעה...">
+            <button id="gpt-chat-send">שלח</button>
         </div>
     </div>
-    <div id="gpt-chat-toggle" onclick="toggleGptChat()">
+    <button id="gpt-chat-toggle">
         <i class="fas fa-comments"></i>
-    </div>
+    </button>
+
     <script>
-        // GPT Chat Widget Logic
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize elements after DOM is loaded
-            const gptChatWidget = document.getElementById('gpt-chat-widget');
-            const gptChatToggle = document.getElementById('gpt-chat-toggle');
-            const gptChatBody = document.getElementById('gpt-chat-body');
-            const gptInput = document.getElementById('gpt-input');
+            const widget = document.getElementById('gpt-chat-widget');
+            const toggle = document.getElementById('gpt-chat-toggle');
+            const close = document.getElementById('gpt-chat-close');
+            const input = document.getElementById('gpt-chat-input');
+            const send = document.getElementById('gpt-chat-send');
+            const messages = document.getElementById('gpt-messages');
 
-            // Add debug logs
-            console.log('Debug: Chat widget elements loaded');
-            console.log('Debug: gptChatWidget exists:', !!gptChatWidget);
-            console.log('Debug: gptChatToggle exists:', !!gptChatToggle);
-            console.log('Debug: gptChatBody exists:', !!gptChatBody);
-            console.log('Debug: gptInput exists:', !!gptInput);
+            // Toggle chat visibility
+            toggle.addEventListener('click', () => {
+                widget.style.display = widget.style.display === 'none' ? 'block' : 'none';
+            });
 
-            // Add event listener for Enter key
-            if (gptInput) {
-                gptInput.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') {
-                        sendGptMessage();
-                    }
-                });
-            }
-        });
+            close.addEventListener('click', () => {
+                widget.style.display = 'none';
+            });
 
-        // Function to toggle chat visibility
-        window.toggleGptChat = function() {
-            const gptChatWidget = document.getElementById('gpt-chat-widget');
-            const gptChatToggle = document.getElementById('gpt-chat-toggle');
-            if (!gptChatWidget || !gptChatToggle) return;
-            if (gptChatWidget.classList.contains('visible')) {
-                gptChatWidget.classList.remove('visible');
-                gptChatToggle.classList.remove('hidden');
-            } else {
-                gptChatWidget.classList.add('visible');
-                gptChatToggle.classList.add('hidden');
-                const gptInput = document.getElementById('gpt-input');
-                if (gptInput) gptInput.focus();
-            }
-        };
-
-        // Function to append messages to the chat body
-        function appendGptMessage(role, text) {
-            const gptChatBody = document.getElementById('gpt-chat-body');
-            if (!gptChatBody) return;
-            const msg = document.createElement("div");
-            msg.classList.add('gpt-message', role);
-            msg.innerText = text;
-            gptChatBody.appendChild(msg);
-            gptChatBody.scrollTop = gptChatBody.scrollHeight;
-            return msg;
-        }
-
-        // Function to send user message to GPT API
-        window.sendGptMessage = async function() {
-            const gptInput = document.getElementById('gpt-input');
-            const gptChatBody = document.getElementById('gpt-chat-body');
-            if (!gptInput || !gptChatBody) return;
-            const message = gptInput.value.trim();
-            if (!message) return;
-
-            appendGptMessage("user", message);
-            gptInput.value = "";
-            const loadingMsg = appendGptMessage("bot", "...חושב על תשובה");
-            loadingMsg.classList.add('loading');
-
-            try {
-                const res = await fetch("https://orelagantmoney-cs3k6lxd--oreli123s-projects.vercel.app/api/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        message,
-                        client_id: "shira_tours"
+            // Handle message sending
+            function sendMessage() {
+                const message = input.value.trim();
+                if (message) {
+                    appendMessage('user', message);
+                    input.value = '';
+                    
+                    // Show loading message
+                    const loadingId = 'loading-' + Date.now();
+                    appendMessage('loading', '...', loadingId);
+                    
+                    // Send to API
+                    fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer YOUR_API_KEY'
+                        },
+                        body: JSON.stringify({
+                            model: "gpt-3.5-turbo",
+                            messages: [{
+                                role: "user",
+                                content: message
+                            }]
+                        })
                     })
-                });
-
-                const data = await res.json();
-                loadingMsg.innerText = data.reply || "לא התקבלה תשובה";
-                loadingMsg.classList.remove('loading');
-            } catch (err) {
-                loadingMsg.innerText = "אירעה שגיאה בעת קבלת תשובה. נסה שוב.";
-                loadingMsg.classList.remove('loading');
-                loadingMsg.classList.add('error');
+                    .then(response => response.json())
+                    .then(data => {
+                        // Remove loading message
+                        const loadingMsg = document.getElementById(loadingId);
+                        if (loadingMsg) loadingMsg.remove();
+                        
+                        // Add bot response
+                        if (data.choices && data.choices[0]) {
+                            appendMessage('bot', data.choices[0].message.content);
+                        } else {
+                            appendMessage('error', 'מצטערים, אירעה שגיאה בתקשורת עם השרת');
+                        }
+                    })
+                    .catch(error => {
+                        // Remove loading message
+                        const loadingMsg = document.getElementById(loadingId);
+                        if (loadingMsg) loadingMsg.remove();
+                        
+                        appendMessage('error', 'מצטערים, אירעה שגיאה בתקשורת עם השרת');
+                        console.error('Error:', error);
+                    });
+                }
             }
-        };
+
+            // Append message to chat
+            function appendMessage(type, content, id = '') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `gpt-message ${type}`;
+                if (id) messageDiv.id = id;
+                messageDiv.textContent = content;
+                messages.appendChild(messageDiv);
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            // Send message on button click
+            send.addEventListener('click', sendMessage);
+
+            // Send message on Enter key
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Initialize chat as hidden
+            widget.style.display = 'none';
+        });
     </script>
+
+    <!-- Mobile Menu Toggle Logic -->
     <script>
-        // Mobile Menu Toggle Logic
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const navLinks = document.querySelector('.nav-links');
 

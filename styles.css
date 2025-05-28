@@ -19,7 +19,7 @@
     --border-radius-sm: 8px;
     --border-radius-md: 15px;
     --border-radius-lg: 25px;
-    --header-height: 70px;
+    --header-height: 60px; /* Reduced header height for mobile */
     --font-primary: 'Heebo', sans-serif;
 }
 
@@ -148,22 +148,23 @@ header {
 }
 
 .nav-links {
-    display: none; /* Hidden by default on mobile */
+    display: none;
     position: fixed;
     top: var(--header-height);
-    left: 0;
+    right: 0; /* Changed from left to right for RTL */
     width: 100%;
     height: calc(100vh - var(--header-height));
     background: rgba(255, 255, 255, 0.98);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
+    z-index: 1000;
 }
 
 .nav-links.active {
@@ -393,22 +394,43 @@ header {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .hero-content {
+        padding: 0 1rem;
+    }
+
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 1rem;
     }
-    
+
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
     }
-    
-    .hero-features {
-        flex-wrap: wrap;
-        gap: 1.5rem;
-    }
-    
-    .quick-links {
+
+    .hero-search {
         flex-direction: column;
         gap: 1rem;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .quick-links {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .hero-features {
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .feature {
+        flex: 1 1 calc(50% - 1rem);
+        min-width: 120px;
     }
 }
 
@@ -1100,6 +1122,27 @@ h2::after {
     }
 }
 
+/* Mobile Deals Section */
+@media (max-width: 768px) {
+    .deals-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .deal-card {
+        max-width: 100%;
+    }
+
+    .deal-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .deal-content p {
+        font-size: 0.9rem;
+    }
+}
+
 /* Categories Showcase Section - 3D Carousel with gradient background */
 #categories-showcase {
     padding: 0;
@@ -1385,43 +1428,28 @@ h2::after {
     pointer-events: none;
 }
 
-/* Add these responsive improvements for mobile */
+/* Mobile Categories Section */
 @media (max-width: 768px) {
     .categories-3d-container {
-        height: 450px; /* Smaller height on mobile */
+        padding: 1rem;
     }
-    
+
     .category-card {
-        width: 240px; /* Smaller cards on mobile */
-        height: 320px;
-        margin-left: -120px;
-        margin-top: -160px;
-        touch-action: manipulation; /* Better touch handling */
+        width: 280px;
+        height: 200px;
     }
-    
-    .category-card-front::before {
-        font-size: 1.5rem; /* Smaller text on mobile */
-    }
-    
+
     .category-content h3 {
         font-size: 1.3rem;
     }
-    
+
     .category-content p {
         font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-    
-    .carousel-control {
-        width: 40px; /* Larger touch targets */
-        height: 40px;
-        background: rgba(255, 255, 255, 0.2); /* More visible on dark background */
     }
 
-    /* Add this to make the whole carousel area scrollable instead of zoomable */
-    #categories-showcase {
-        -webkit-overflow-scrolling: touch;
-        touch-action: pan-y;
+    .carousel-control {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -1521,6 +1549,20 @@ h2::after {
     }
     .team-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Mobile Team Section */
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .team-member {
+        max-width: 280px;
+        margin: 0 auto;
     }
 }
 
@@ -1878,6 +1920,27 @@ footer {
     }
 }
 
+/* Mobile Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer-section {
+        padding: 1rem;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .footer-whatsapp-cta {
+        margin-top: 1rem;
+    }
+}
+
 /* Exit Popup Styles */
 .exit-popup { /* This is now the overlay */
     position: fixed;
@@ -2002,9 +2065,12 @@ footer {
     .whatsapp-float {
         width: 50px;
         height: 50px;
-        font-size: 1.8rem;
-        bottom: 20px;
-        right: 20px;
+        right: 15px;
+        bottom: 15px;
+    }
+
+    .whatsapp-float i {
+        font-size: 1.5rem;
     }
 }
 
@@ -2290,4 +2356,815 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ... rest of styles ... */ 
+/* Mobile Touch Improvements */
+@media (max-width: 768px) {
+    /* Prevent text size adjustment */
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    /* Better touch targets */
+    button, 
+    .nav-links a,
+    .quick-link,
+    .deal-button,
+    .category-cta,
+    .destination-cta,
+    .insurance-cta,
+    .join-button,
+    .review-nav button {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+    }
+
+    /* Prevent zoom on input focus */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+
+    /* Smoother scrolling */
+    .categories-3d-carousel,
+    .destination-screens,
+    .deals-grid {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+
+    /* Optimize animations for mobile */
+    .category-card,
+    .deal-card,
+    .team-member,
+    .destination-screen {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    /* Improve tap highlight color */
+    * {
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    }
+
+    /* Better spacing for mobile */
+    section {
+        padding: 3rem 1rem;
+        margin: 2rem auto;
+    }
+
+    /* Optimize images for mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Improve form elements */
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+
+    /* Better mobile navigation */
+    .nav-links {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Mobile menu button improvements */
+    .mobile-nav-toggle {
+        padding: 12px;
+        margin: -12px;
+    }
+
+    .mobile-nav-toggle span {
+        width: 24px;
+        height: 2px;
+        margin: 5px 0;
+    }
+
+    /* Mobile hero improvements */
+    .hero-content {
+        padding-top: 2rem;
+    }
+
+    .hero-search {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    /* Mobile deals improvements */
+    .deal-card {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+
+    .deal-image {
+        height: 200px;
+    }
+
+    /* Mobile destinations improvements */
+    .destination-screen {
+        margin-bottom: 1rem;
+    }
+
+    .destination-content {
+        background: rgba(0,0,0,0.7);
+    }
+
+    /* Mobile team improvements */
+    .team-member {
+        margin-bottom: 2rem;
+    }
+
+    .member-image {
+        height: 250px;
+    }
+
+    /* Mobile footer improvements */
+    .footer-section {
+        margin-bottom: 2rem;
+    }
+
+    .social-links a {
+        margin: 0 0.5rem;
+    }
+
+    /* Mobile exit popup improvements */
+    .exit-popup-content {
+        margin: 1rem;
+    }
+
+    /* Mobile WhatsApp float improvements */
+    .whatsapp-float {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Mobile chat widget improvements */
+    #gpt-chat-widget {
+        border-radius: 0;
+    }
+
+    #gpt-chat-input {
+        font-size: 16px;
+    }
+}
+
+/* ... existing code ... */ 
+
+/* Additional Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Gallery and Image Optimizations */
+    .destination-screen {
+        background-attachment: scroll; /* Better performance on mobile */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .deal-image img,
+    .member-image img,
+    .category-card-front img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Text and Typography */
+    h1 {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    /* Spacing and Layout */
+    .hero-content,
+    .about-content,
+    .insurance-content,
+    .join-us-content {
+        padding: 1rem;
+    }
+
+    /* Grid and Flex Layouts */
+    .deals-grid,
+    .team-grid,
+    .benefits-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    /* Form Elements */
+    .contact-form {
+        max-width: 100%;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    /* Buttons and Interactive Elements */
+    .deal-button,
+    .category-cta,
+    .destination-cta,
+    .insurance-cta,
+    .join-button {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    /* Navigation and Menu */
+    .nav-links {
+        padding: 1rem 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Carousel and Slider */
+    .categories-3d-carousel {
+        height: auto;
+        min-height: 300px;
+    }
+
+    .carousel-controls {
+        bottom: 1rem;
+    }
+
+    /* Reviews Section */
+    .review-slider-container {
+        padding: 1rem;
+    }
+
+    .review {
+        padding: 1.5rem;
+    }
+
+    .review-text {
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer-content {
+        padding: 2rem 1rem;
+    }
+
+    .footer-section {
+        margin-bottom: 2rem;
+    }
+
+    .social-links {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    /* WhatsApp and Chat */
+    .whatsapp-float {
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    #gpt-chat-widget {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+    }
+
+    /* Exit Popup */
+    .exit-popup-content {
+        width: 90%;
+        max-width: 320px;
+        margin: 1rem;
+    }
+
+    /* Loading States */
+    .loading {
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Error States */
+    .error-message {
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 8px;
+    }
+}
+
+/* ... existing code ... */ 
+
+/* Further Mobile Adjustments (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Ensure header height is respected */
+    body {
+        padding-top: var(--header-height);
+    }
+
+    /* Navigation specific overrides */
+    .main-nav .nav-container {
+        padding: 0 0.8rem; /* Slightly less padding */
+    }
+
+    .nav-links {
+        gap: 1rem; /* Slightly less gap */
+    }
+
+    .nav-links a {
+        font-size: 1.1rem; /* Slightly smaller font */
+        padding: 0.8rem 1rem; /* Adjusted padding */
+    }
+
+    /* Hero section layout and spacing */
+    .modern-hero {
+        min-height: auto; /* Allow height to adjust to content */
+        padding: calc(var(--header-height) + 2rem) 1rem 2rem 1rem; /* Add padding top considering header */
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem; /* Smaller heading */
+        margin-bottom: 0.8rem; /* Less margin */
+    }
+
+    .hero-subtitle {
+        font-size: 1rem; /* Smaller subtitle */
+        margin-bottom: 1.5rem; /* Less margin */
+    }
+
+    .search-box input {
+        padding: 0.8rem 1.5rem; /* Adjusted padding */
+        font-size: 1rem; /* Adjusted font size */
+    }
+
+     .search-btn {
+        padding: 0.8rem 1.5rem; /* Adjusted padding */
+        font-size: 1rem; /* Adjusted font size */
+    }
+
+    .quick-links {
+        gap: 0.6rem; /* Less gap */
+        margin-top: 1.5rem; /* Less margin */
+    }
+
+    .quick-link {
+        padding: 0.4rem 0.8rem; /* Adjusted padding */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    .quick-link i {
+         font-size: 1rem; /* Smaller icon */
+    }
+
+    .hero-features {
+        position: relative; /* Make it part of the flow */
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin-top: 2rem; /* Add margin after quick links */
+        gap: 0.8rem; /* Less gap */
+        padding: 0 1rem; /* Adjusted padding */
+        justify-content: space-around; /* Distribute features */
+    }
+
+    .feature {
+        flex: 1 1 auto; /* Allow features to shrink/grow */
+        min-width: unset; /* Remove min-width constraint */
+        font-size: 1rem; /* Adjusted font size */
+        gap: 0.3rem; /* Less gap */
+    }
+
+    .feature i {
+        font-size: 1.2rem; /* Adjusted icon size */
+    }
+
+    /* Adjust spacing for sections */
+    section {
+        padding: 2rem 1rem; /* Reduced padding */
+        margin: 1.5rem auto; /* Reduced margin */
+    }
+
+    h2 {
+        font-size: 1.6rem; /* Smaller section titles */
+        margin-bottom: 1.5rem; /* Less margin below title */
+        padding-bottom: 1rem; /* Less padding below title */
+    }
+
+    h2::after {
+        width: 80px; /* Shorter underline */
+    }
+
+    /* 3D Carousel adjustments */
+    .categories-3d-container {
+         height: auto; /* Allow height to adjust */
+         min-height: 400px; /* Minimum height for carousel area */
+         padding: 1rem 0; /* Padding only top/bottom */
+    }
+
+    .categories-3d-carousel {
+        position: relative; /* Change from absolute */
+        transform-style: unset; /* Remove 3D transform style */
+        perspective: unset; /* Remove perspective */
+        height: auto; /* Height adjusts to content */
+        padding-bottom: 40px; /* Space for controls */
+    }
+
+     .category-card {
+        position: static; /* Change from absolute */
+        transform: none !important; /* Remove any 3D transforms */
+        opacity: 1 !important; /* Ensure visible */
+        margin: 1rem auto; /* Center cards and add vertical space */
+        width: 90%; /* Make cards take most of the width */
+        max-width: 300px; /* Max width for cards */
+        height: auto; /* Height adjusts to content */
+        aspect-ratio: 4/3; /* Maintain aspect ratio */
+        box-shadow: var(--shadow-sm); /* Smaller shadow */
+    }
+
+    .category-card-inner {
+        transform: none !important; /* Remove inner 3D transforms */
+    }
+
+    .category-card-front, .category-card-back {
+        position: static; /* Change from absolute */
+        backface-visibility: visible; /* Make both sides visible */
+        -webkit-backface-visibility: visible;
+        border-radius: 15px; /* Smaller border radius */
+    }
+
+    .category-card-front::before {
+        font-size: 1.4rem; /* Adjusted font size */
+        bottom: 10px; /* Adjusted position */
+        left: 10px; /* Adjusted position */
+    }
+
+    .category-card-back {
+        transform: none !important; /* Remove backface transform */
+        padding: 1.5rem; /* Reduced padding */
+        margin-top: 1rem; /* Add space between front and back if needed (though layout should stack) */
+    }
+
+    .category-card:hover .category-card-inner {
+        transform: none; /* Disable flip on hover */
+    }
+
+    .carousel-controls {
+        position: static; /* Make it part of the flow */
+        margin-top: 1rem; /* Add space above controls */
+        gap: 1rem; /* Reduced gap */
+    }
+
+    .carousel-control {
+        width: 40px; /* Smaller buttons */
+        height: 40px;
+        font-size: 1.2rem; /* Smaller icon */
+    }
+
+    /* Deals section grid */
+    .deals-grid {
+        gap: 1rem; /* Reduced gap */
+    }
+
+    .deal-card {
+        max-width: 350px; /* Slightly wider cards */
+    }
+
+    /* Destinations section */
+    .destination-screen {
+        min-height: 60vh; /* Reduced min height */
+        padding: 2rem 1rem; /* Reduced padding */
+    }
+
+    .destination-content {
+        padding: 1.5rem; /* Reduced padding */
+        background: rgba(0,0,0,0.8); /* Slightly darker overlay */
+    }
+
+    .destination-content h3 {
+        font-size: 1.6rem; /* Reduced font size */
+    }
+
+    .destination-content p {
+        font-size: 0.95rem; /* Reduced font size */
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+
+    /* Team section */
+    .team-grid {
+        gap: 1.5rem; /* Reduced gap */
+    }
+
+    .team-member {
+         max-width: 300px; /* Slightly wider cards */
+         padding: 1rem; /* Reduced padding */
+    }
+
+    .member-image {
+        width: 120px; /* Smaller image */
+        height: 120px;
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+    .member-image::after {
+         opacity: 0.5; /* Show gradient slightly by default */
+    }
+
+    .team-member:hover .member-image::after {
+         opacity: 0.9; /* Increase opacity on hover */
+    }
+
+    .member-image h3 {
+        font-size: 1.2rem; /* Reduced font size */
+    }
+
+    .member-image p {
+        font-size: 0.9rem; /* Reduced font size */
+    }
+
+    /* About section */
+    .about-content {
+         padding: 1.5rem; /* Reduced padding */
+    }
+
+    /* Join Us section */
+     #join-us {
+        padding: 3rem 1rem; /* Reduced padding */
+    }
+
+    #join-us h2 {
+        font-size: 1.8rem; /* Reduced font size */
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+     #join-us p {
+        font-size: 1rem; /* Reduced font size */
+        margin-bottom: 2rem; /* Reduced margin */
+    }
+
+     .benefits-list {
+        gap: 1rem; /* Reduced gap */
+        padding: 0 1rem; /* Added padding */
+     }
+
+     .benefit-item {
+         padding: 1rem; /* Reduced padding */
+         gap: 1rem; /* Reduced gap */
+         flex-direction: column; /* Stack icon and text */
+         text-align: center; /* Center text */
+     }
+
+     .benefit-item i {
+         font-size: 2rem; /* Reduced icon size */
+         width: auto; /* Auto width */
+     }
+
+     .benefit-item div h3 {
+         font-size: 1.2rem; /* Reduced font size */
+         margin-bottom: 0.3rem; /* Reduced margin */
+     }
+
+     .benefit-item div p {
+         font-size: 0.9rem; /* Reduced font size */
+     }
+
+    .join-button {
+        padding: 0.8rem 2rem; /* Reduced padding */
+        font-size: 1rem; /* Reduced font size */
+    }
+
+    /* Reviews section */
+    .reviews {
+        padding-bottom: 3rem; /* Reduced padding */
+    }
+
+    .review-slider-container {
+         padding: 2rem 1rem; /* Reduced padding */
+    }
+
+    .review {
+        padding: 1rem; /* Reduced padding */
+    }
+
+    .review-stars {
+        font-size: 1.1rem; /* Reduced font size */
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+    .review-text {
+        font-size: 0.95rem; /* Reduced font size */
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+    .review-author {
+        font-size: 1rem; /* Reduced font size */
+        margin-top: 0.8rem; /* Reduced margin */
+    }
+
+    .review-nav button {
+        width: 35px; /* Smaller buttons */
+        height: 35px;
+        font-size: 1rem; /* Smaller icon */
+    }
+
+    /* Contact form */
+    .contact-form {
+        padding: 1rem; /* Reduced padding */
+    }
+
+    .contact-form input, .contact-form select, .contact-form textarea {
+        padding: 0.6rem; /* Reduced padding */
+        font-size: 0.9rem; /* Reduced font size */
+    }
+
+     .contact-form button {
+        padding: 0.8rem 2rem; /* Reduced padding */
+        font-size: 1rem; /* Reduced font size */
+    }
+
+    /* Footer */
+    footer {
+        padding: 2rem 1rem; /* Reduced padding */
+    }
+
+    .footer-content {
+        gap: 1.5rem; /* Reduced gap */
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+
+    .footer-section h3 {
+        font-size: 1.1rem; /* Reduced font size */
+        margin-bottom: 0.8rem; /* Reduced margin */
+    }
+
+    .footer-section p, .footer-section a {
+        font-size: 0.9rem; /* Reduced font size */
+        margin-bottom: 0.3rem; /* Reduced margin */
+    }
+
+    .social-links {
+        gap: 1rem; /* Reduced gap */
+    }
+
+    .social-links a {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    .footer-whatsapp-cta {
+        padding: 1rem; /* Reduced padding */
+        margin-top: 1.5rem; /* Adjusted margin */
+    }
+
+    .footer-whatsapp-cta h4 {
+        font-size: 1rem; /* Reduced font size */
+        margin-bottom: 0.8rem; /* Reduced margin */
+    }
+
+    .footer-whatsapp-cta a {
+        padding: 0.5rem 1rem; /* Reduced padding */
+        font-size: 0.9rem; /* Reduced font size */
+    }
+
+     .footer-whatsapp-cta a i {
+         font-size: 1rem; /* Reduced icon size */
+     }
+
+    .footer-bottom {
+        margin-top: 1.5rem; /* Reduced margin */
+        padding-top: 1rem; /* Reduced padding */
+        font-size: 0.8rem; /* Reduced font size */
+    }
+
+    /* Exit Popup */
+    .exit-popup-content {
+        padding: 1.5rem; /* Reduced padding */
+        max-width: 95%; /* Increased max-width */
+        margin: 0.8rem; /* Reduced margin */
+    }
+
+     .exit-popup-content h3 {
+         font-size: 1.4rem; /* Adjusted font size */
+     }
+
+     .exit-popup-content p {
+         font-size: 0.95rem; /* Adjusted font size */
+         margin-bottom: 1rem; /* Reduced margin */
+     }
+
+     .exit-popup-content .whatsapp-join-link {
+         padding: 0.7rem 1.2rem; /* Adjusted padding */
+         font-size: 0.9rem; /* Adjusted font size */
+     }
+
+     .exit-popup-content .close-popup {
+         font-size: 1.8rem; /* Reduced font size */
+         top: 5px; /* Adjusted position */
+         right: 10px; /* Adjusted position */
+     }
+
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+        width: 45px; /* Smaller button */
+        height: 45px;
+        font-size: 1.3rem; /* Smaller icon */
+        right: 10px; /* Adjusted position */
+        bottom: 10px; /* Adjusted position */
+    }
+
+    /* Chat Widget */
+    #gpt-chat-widget {
+        bottom: 60px; /* Adjusted position to be above whatsapp button */
+        right: 10px; /* Adjusted position */
+        width: calc(100% - 20px); /* Take up more width */
+        height: calc(100% - 80px); /* Adjusted height */
+        max-width: none; /* Remove max width constraint */
+        max-height: none; /* Remove max height constraint */
+    }
+
+    #gpt-chat-header {
+        padding: 12px; /* Reduced padding */
+    }
+
+     #gpt-chat-header h3 {
+         font-size: 1rem; /* Reduced font size */
+     }
+
+     #gpt-chat-close {
+         font-size: 1.3rem; /* Reduced font size */
+     }
+
+     #gpt-chat-body {
+         padding: 10px; /* Reduced padding */
+         height: calc(100% - 100px); /* Adjusted height calculation */
+     }
+
+     #gpt-messages {
+         gap: 8px; /* Reduced gap */
+     }
+
+     .gpt-message {
+         padding: 8px 12px; /* Reduced padding */
+         max-width: 85%; /* Increased max width */
+     }
+
+     #gpt-chat-input-area {
+         padding: 10px; /* Reduced padding */
+         gap: 8px; /* Reduced gap */
+     }
+
+     #gpt-chat-input {
+         padding: 8px; /* Reduced padding */
+         font-size: 0.9rem; /* Reduced font size */
+     }
+
+      #gpt-chat-send {
+          padding: 8px 15px; /* Reduced padding */
+          font-size: 0.9rem; /* Reduced font size */
+      }
+
+    #gpt-chat-toggle {
+        width: 45px; /* Smaller button */
+        height: 45px;
+        font-size: 1.3rem; /* Smaller icon */
+        bottom: 10px; /* Adjusted position */
+        right: 10px; /* Adjusted position */
+    }
+
+    /* Hide some elements on very small screens if necessary */
+    /* @media (max-width: 375px) { */
+        /* .some-element { display: none; } */
+    /* } */
+}
+/* ... existing code ... */

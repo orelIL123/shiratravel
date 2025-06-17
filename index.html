@@ -493,9 +493,16 @@
 
     <!-- Chat Widget -->
     <script
-        id="vegos-chat-widget-script"
+        id="shira-travel-chat-widget"
         src="https://gpt-chat-live.vercel.app/widget.js"
         data-client-id="shira_tours"
+        data-theme="light"
+        data-position="bottom-right"
+        data-welcome-message="שלום! אני כאן לעזור לך למצוא את החופשה המושלמת. איך אוכל לעזור?"
+        data-primary-color="#4CAF50"
+        data-secondary-color="#2196F3"
+        data-font-family="Heebo, sans-serif"
+        data-language="he"
     ></script>
 
     <!-- Mobile Menu Toggle Logic -->
@@ -1128,6 +1135,45 @@
                 });
             });
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate palm trees
+            const palmTrees = document.querySelectorAll('.palm-tree');
+            palmTrees.forEach(tree => {
+                setTimeout(() => {
+                    tree.classList.add('animate');
+                }, 500);
+            });
+
+            // Add scroll-triggered animations
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Hero section animations
+            gsap.from('.hero-content h1', {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+            
+            gsap.from('.hero-subtitle', {
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                delay: 0.3,
+                ease: 'power3.out'
+            });
+            
+            gsap.from('.quick-links', {
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                delay: 0.6,
+                ease: 'power3.out'
+            });
+        });
     </script>
 
 </body>

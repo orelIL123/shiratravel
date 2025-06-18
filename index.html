@@ -3,1172 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>שירה תיירות</title>
-    <link rel="stylesheet" href="/shiratravel/styles.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="fullscreen.css">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+    <title>שירה תיירות - חוויות בלתי נשכחות</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Heebo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Modern Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            color: rgba(255,255,255,0.1);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 5rem 0;
+            background: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .destination-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .destination-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .destination-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .destination-card:hover .destination-overlay {
+            opacity: 1;
+        }
+
+        .destination-content {
+            padding: 2rem;
+        }
+
+        .destination-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .destination-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .destination-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .book-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .book-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Deals Carousel */
+        .deals-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #fff;
+        }
+
+        .deals-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .deals-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .deal-card {
+            min-width: 300px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .deal-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .deal-card .price {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .deals-track {
+                gap: 1rem;
+            }
+
+            .deal-card {
+                min-width: 280px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
 <body>
-    <header>
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="logo-wrapper">
-                    <span class="logo">שירה תיירות</span>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#hero">דף הבית</a></li>
-                    <li><a href="#deals">דילים חמים</a></li>
-                    <li><a href="#destinations-showcase">יעדים</a></li>
-                    <li><a href="#about">אודות</a></li>
-                    <li><a href="#join-us">הצטרף כסוכן</a></li>
-                    <li><a href="#contact">צור קשר</a></li>
-                </ul>
-                <button class="mobile-nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">שירה תיירות</div>
+            <ul class="nav-links">
+                <li><a href="#hero">דף הבית</a></li>
+                <li><a href="#destinations">יעדים</a></li>
+                <li><a href="#deals">דילים</a></li>
+                <li><a href="#services">שירותים</a></li>
+                <li><a href="#contact">צור קשר</a></li>
+            </ul>
+            <button class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </nav>
     </header>
 
-    <!-- New Hero Section -->
-    <section id="hero" class="modern-hero">
-        <div class="hero-overlay"></div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="floating-elements">
+            <div class="floating-element">✈️</div>
+            <div class="floating-element">🏖️</div>
+            <div class="floating-element">🗺️</div>
+        </div>
         <div class="hero-content">
-            <h1>חופשה מושלמת מתחילה כאן</h1>
-            <p class="hero-subtitle">מגלים עולם של אפשרויות</p>
-            <div class="hero-search">
-                <div class="search-box">
-                    <input type="text" placeholder="לאן תרצו לטוס?">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <div class="quick-links">
-                    <a href="#deals" class="quick-link">
-                        <i class="fas fa-fire"></i>
-                        דילים חמים
-                    </a>
-                    <a href="#destinations-showcase" class="quick-link">
-                        <i class="fas fa-map-marked-alt"></i>
-                        יעדים מובילים
-                    </a>
-                    <a href="#contact" class="quick-link">
-                        <i class="fas fa-headset"></i>
-                        צור קשר
-                    </a>
-                </div>
-            </div>
+            <h1>חוויות בלתי נשכחות</h1>
+            <p>גלה את העולם עם שירה תיירות - חופשות מושלמות במחירים משתלמים</p>
+            <a href="#destinations" class="cta-button">התחל את המסע שלך</a>
         </div>
-        <div class="hero-features">
-            <div class="feature">
-                <i class="fas fa-plane"></i>
-                <span>טיסות ישירות</span>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+        <h2 class="section-title">יעדים מובילים</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                    <div class="destination-overlay">
+                        <i class="fas fa-search-plus fa-2x"></i>
+                    </div>
+                </div>
+                <div class="destination-content">
+                    <h3>פריז, צרפת</h3>
+                    <p>עיר האורות והרומנטיקה - חוויה בלתי נשכחת</p>
+                    <div class="destination-price">₪4,999</div>
+                    <a href="#contact" class="book-button">הזמן עכשיו</a>
+                </div>
             </div>
-            <div class="feature">
-                <i class="fas fa-hotel"></i>
-                <span>מלונות מובחרים</span>
+
+            <div class="destination-card">
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1555992336-03a23c7b20ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                    <div class="destination-overlay">
+                        <i class="fas fa-search-plus fa-2x"></i>
+                    </div>
+                </div>
+                <div class="destination-content">
+                    <h3>תאילנד</h3>
+                    <p>גן עדן טרופי עם חופים מדהימים ומקדשים עתיקים</p>
+                    <div class="destination-price">₪6,999</div>
+                    <a href="#contact" class="book-button">הזמן עכשיו</a>
+                </div>
             </div>
-            <div class="feature">
-                <i class="fas fa-shield-alt"></i>
-                <span>ביטוח נסיעות</span>
-            </div>
-            <div class="feature">
-                <i class="fas fa-headset"></i>
-                <span>תמיכה 24/7</span>
+
+            <div class="destination-card">
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                    <div class="destination-overlay">
+                        <i class="fas fa-search-plus fa-2x"></i>
+                    </div>
+                </div>
+                <div class="destination-content">
+                    <h3>יפן</h3>
+                    <p>שילוב מושלם בין מסורת עתיקה לחדשנות מודרנית</p>
+                    <div class="destination-price">₪8,999</div>
+                    <a href="#contact" class="book-button">הזמן עכשיו</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Categories Section - Restructured for 3D -->
-    <section id="categories-showcase">
-        <h2>סוגי החופשות שאנו מציעים</h2>
-        <div class="categories-3d-container">
-            <div class="categories-3d-carousel">
-                <!-- Family Vacations -->
-                <div class="category-card" data-category="family">
-                    <div class="category-card-inner">
-                        <div class="category-card-front">
-                            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=600&h=400&q=80" alt="חופשות משפחתיות">
-                        </div>
-                        <div class="category-card-back">
-                            <div class="category-content">
-                                <h3>חופשות משפחתיות</h3>
-                                <p>חוויות בלתי נשכחות ומהנות לכל המשפחה, ביעדים המותאמים במיוחד לילדים ולצרכים שלכם.</p>
-                                <a href="#contact" class="category-cta">תכנון חופשה משפחתית</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Couples Vacations -->
-                <div class="category-card" data-category="couples">
-                    <div class="category-card-inner">
-                        <div class="category-card-front">
-                            <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&h=400&q=80" alt="חופשות זוגיות">
-                        </div>
-                        <div class="category-card-back">
-                            <div class="category-content">
-                                <h3>חופשות זוגיות</h3>
-                                <p>בריחה רומנטית ליעדים קסומים, מלונות מפנקים ואווירה מושלמת לרגעים שלכם ביחד.</p>
-                                <a href="#contact" class="category-cta">תכנון חופשה זוגית</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Backpackers Trips -->
-                <div class="category-card" data-category="backpackers">
-                    <div class="category-card-inner">
-                        <div class="category-card-front">
-                            <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=600&h=400&q=80" alt="טיולי תרמילאים">
-                        </div>
-                        <div class="category-card-back">
-                            <div class="category-content">
-                                <h3>טיולי תרמילאים</h3>
-                                <p>הרפתקאות מסעירות ברחבי העולם, מסלולים מותאמים אישית ותמיכה לאורך כל הדרך.</p>
-                                <a href="#contact" class="category-cta">תכנון טיול תרמילאים</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Adventure Tours (added a 4th item for better 3D effect) -->
-                <div class="category-card" data-category="adventure">
-                    <div class="category-card-inner">
-                        <div class="category-card-front">
-                            <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&h=400&q=80" alt="טיולי אקסטרים">
-                        </div>
-                        <div class="category-card-back">
-                            <div class="category-content">
-                                <h3>טיולי אקסטרים</h3>
-                                <p>חוויות אדרנלין בלתי נשכחות. טיולי ג'יפים, טרקים, צניחה חופשית, רפטינג ועוד פעילויות מאתגרות.</p>
-                                <a href="#contact" class="category-cta">תכנון טיול אקסטרים</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Navigation controls for the carousel -->
-            <div class="carousel-controls">
-                <button class="carousel-control prev" aria-label="קטגוריה קודמת"><i class="fas fa-chevron-right"></i></button>
-                <button class="carousel-control next" aria-label="קטגוריה הבאה"><i class="fas fa-chevron-left"></i></button>
-            </div>
-        </div>
-    </section>
-
-    <section id="deals">
-        <h2>דילים חמים</h2>
-        <div class="deals-grid">
-            <div class="deal-card">
-                <div class="deal-image">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לאירופה">
-                    <div class="deal-tag">משפחות</div>
-                    <div class="deal-3d-icon"></div>
-                </div>
-                <div class="deal-content">
+    <!-- Deals Carousel -->
+    <section id="deals" class="deals-section">
+        <h2 class="section-title">דילים חמים</h2>
+        <div class="deals-carousel">
+            <div class="deals-track" id="dealsTrack">
+                <div class="deal-card">
                     <h3>אירופה - 7 לילות</h3>
                     <p>טיסה + מלון + סיורים מודרכים</p>
                     <div class="price">₪4,999</div>
-                    <button class="deal-button">לפרטים נוספים</button>
+                    <a href="#contact" class="book-button">לפרטים נוספים</a>
                 </div>
-            </div>
-            <div class="deal-card">
-                <div class="deal-image">
-                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל לתאילנד">
-                    <div class="deal-tag">זוגות</div>
-                    <div class="deal-3d-icon"></div>
-                </div>
-                <div class="deal-content">
+                <div class="deal-card">
                     <h3>תאילנד - 10 לילות</h3>
                     <p>טיסה + מלון + טיולים מאורגנים</p>
                     <div class="price">₪6,999</div>
-                    <button class="deal-button">לפרטים נוספים</button>
+                    <a href="#contact" class="book-button">לפרטים נוספים</a>
                 </div>
-            </div>
-            <div class="deal-card">
-                <div class="deal-image">
-                    <img src="https://images.unsplash.com/photo-1489447068241-b3490214e879?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="דיל ללרנקה">
-                    <div class="deal-tag">משפחות</div>
-                    <div class="deal-3d-icon"></div>
-                </div>
-                <div class="deal-content">
+                <div class="deal-card">
                     <h3>לרנקה - 5 לילות</h3>
                     <p>טיסה + מלון + העברות</p>
                     <div class="price">₪2,999</div>
-                    <button class="deal-button">לפרטים נוספים</button>
+                    <a href="#contact" class="book-button">לפרטים נוספים</a>
                 </div>
+                <div class="deal-card">
+                    <h3>ניו יורק - 8 לילות</h3>
+                    <p>טיסה + מלון + סיור בעיר</p>
+                    <div class="price">₪9,999</div>
+                    <a href="#contact" class="book-button">לפרטים נוספים</a>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="moveCarousel(-1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button class="carousel-btn" onclick="moveCarousel(1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
             </div>
         </div>
     </section>
 
-    <section id="destinations-showcase">
-        <h2>חקור את היעדים המובילים שלנו</h2>
-        <div class="destination-screens">
-            <!-- Paris -->
-            <div class="destination-screen paris">
-                <div class="destination-content">
-                    <h3>פריז, צרפת</h3>
-                    <p>עיר האורות והרומנטיקה. בקרו במגדל אייפל האייקוני, טיילו במוזיאון הלובר, התענגו על קרואסונים טריים ושוטטו ברחובות הציוריים של מונמארטר.</p>
-                    <a href="#contact" class="destination-cta">תכנן את הטיול לפריז</a>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="section-title">השירותים שלנו</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-plane"></i>
                 </div>
+                <h3>טיסות ישירות</h3>
+                <p>טיסות ישירות ליעדים המובילים בעולם</p>
             </div>
-            <!-- Rome -->
-            <div class="destination-screen rome">
-                <div class="destination-content">
-                    <h3>רומא, איטליה</h3>
-                    <p>בירת הנצח מציעה מסע בזמן אל האימפריה הרומית עם הקולוסאום והפורום הרומאי. אל תחמיצו את קריית הוותיקן, מזרקת טרווי וכמובן, פסטה וג'לטו משובחים.</p>
-                     <a href="#contact" class="destination-cta">תכנן את הטיול לרומא</a>
-               </div>
-            </div>
-             <!-- Tokyo -->
-             <div class="destination-screen tokyo">
-                <div class="destination-content">
-                    <h3>טוקיו, יפן</h3>
-                    <p>מטרופולין תוסס המשלב מסורת עתיקה וחדשנות עוצרת נשימה. חצו את מעבר שיבויה המפורסם, בקרו במקדש סנסו-ג'י, התפעלו מהנוף במגדל טוקיו וטעמו סושי אותנטי.</p>
-                    <a href="#contact" class="destination-cta">תכנן את הטיול לטוקיו</a>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-hotel"></i>
                 </div>
+                <h3>מלונות מובחרים</h3>
+                <p>מלונות 4-5 כוכבים במיקומים הטובים ביותר</p>
             </div>
-            <!-- New York -->
-            <div class="destination-screen new-york">
-                 <div class="destination-content">
-                    <h3>ניו יורק, ארה"ב</h3>
-                    <p>התפוח הגדול מציע חוויות בלתי נגמרות: טיימס סקוור המואר, סנטרל פארק הירוק, פסל החירות המרשים, מוזיאונים ברמה עולמית והצגות בברודווי.</p>
-                    <a href="#contact" class="destination-cta">תכנן את הטיול לניו יורק</a>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
+                <h3>ביטוח נסיעות</h3>
+                <p>כיסוי מקיף לכל מקרה חירום</p>
             </div>
-            <!-- London -->
-            <div class="destination-screen london">
-                <div class="destination-content">
-                    <h3>לונדון, בריטניה</h3>
-                    <p>בירה מלכותית והיסטורית. צפו בחילופי המשמר בארמון בקינגהאם, בקרו במצודת לונדון, ראו הצגה בווסט אנד וטיילו לאורך נהר התמזה.</p>
-                    <a href="#contact" class="destination-cta">תכנן את הטיול ללונדון</a>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-headset"></i>
                 </div>
-            </div>
-            <!-- Bangkok -->
-            <div class="destination-screen bangkok">
-                <div class="destination-content">
-                     <h3>בנגקוק, תאילנד</h3>
-                     <p>עיר תוססת ומלאת ניגודים. בקרו בארמון הגדול ובמקדש וואט ארון המרהיבים, שוטטו בשווקים הצבעוניים, תיהנו מאוכל רחוב מדהים וחיי לילה סוערים.</p>
-                     <a href="#contact" class="destination-cta">תכנן את הטיול לבנגקוק</a>
-                 </div>
-            </div>
-            <!-- Sydney -->
-            <div class="destination-screen sydney">
-                 <div class="destination-content">
-                     <h3>סידני, אוסטרליה</h3>
-                    <p>עיר נמל מדהימה עם בית האופרה האייקוני וגשר הארבור המפורסם. גלשו בחוף בונדיי, טיילו בגנים הבוטניים ותיהנו מאווירה קוסמופוליטית ייחודית.</p>
-                     <a href="#contact" class="destination-cta">תכנן את הטיול לסידני</a>
-                 </div>
+                <h3>תמיכה 24/7</h3>
+                <p>צוות מקצועי זמין בכל שעה</p>
             </div>
         </div>
     </section>
 
-    <section id="insurance">
-        <h2>אל תשכחו את הדבר החשוב ביותר: ביטוח נסיעות</h2>
-        <div class="insurance-content">
-             <div class="insurance-icon">
-                 <i class="fas fa-umbrella-beach fa-4x"></i>
-             </div>
-             <p>נסיעה לחו"ל היא חוויה מרגשת, אך דברים בלתי צפויים עלולים לקרות. ביטוח נסיעות מקיף מעניק לכם כיסוי למקרי חירום רפואיים, אובדן כבודה, ביטול נסיעה ועוד, ומבטיח לכם שקט נפשי אמיתי.</p>
-             <p><strong>אל תוותרו על ביטוח!</strong> אנו ממליצים להתייעץ עם סוכן ביטוח מקצועי או לבדוק הצעות מחברות ביטוח מוכרות כדי למצוא את הפוליסה המתאימה ביותר לצרכים ולסוג הנסיעה שלכם.</p>
-             <a href="#contact" class="insurance-cta">צרו קשר לייעוץ נוסף</a>
-         </div>
-    </section>
-
-    <section id="team">
-        <h2>הצוות שלנו</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="member-image">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
-                </div>
-                <h3>שרה כהן</h3>
-                <p class="member-title">מנהלת מכירות</p>
-                <p class="member-description">מומחית לטיולי משפחות באירופה</p>
-            </div>
-            <div class="team-member">
-                <div class="member-image">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכן תיירות">
-                </div>
-                <h3>דוד לוי</h3>
-                <p class="member-title">יועץ תיירות</p>
-                <p class="member-description">מומחה למזרח הרחוק</p>
-            </div>
-            <div class="team-member">
-                <div class="member-image">
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="סוכנת תיירות">
-                </div>
-                <h3>רחל אברהם</h3>
-                <p class="member-title">יועצת תיירות</p>
-                <p class="member-description">מומחית לחופשות זוגיות</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2>אודות שירה תיירות</h2>
-        <div class="about-content">
-            <p>שירה תיירות היא סוכנות תיירות מובילה בישראל, המתמחה במציאת הדילים הטובים ביותר ללקוחותינו ברחבי העולם. הצוות המקצועי שלנו, עם ניסיון של שנים בענף התיירות, מחויב להעניק לכם את החופשה המושלמת במחיר המשתלם ביותר.</p>
-            <div class="about-features">
-                <div class="feature">
-                    <i class="fas fa-check-circle"></i>
-                    <span>מחירים הוגנים</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-clock"></i>
-                    <span>שירות 24/7</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-star"></i>
-                    <span>חוויית לקוח מצוינת</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="join-us">
-        <div class="join-us-content">
-            <h2>הצטרפו למשפחת שירה תיירות</h2>
-            <p>אנחנו מחפשים סוכני תיירות מקצועיים ונלהבים להצטרף למשפחה שלנו</p>
-            <div class="benefits-list">
-                <div class="benefit-item">
-                    <i class="fas fa-chart-line"></i>
-                    <div>
-                        <h3>הכנסה גבוהה</h3>
-                        <p>תנאי עמלות אטרקטיביים ופוטנציאל הכנסה גבוה</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <div>
-                        <h3>הכשרה מקצועית</h3>
-                        <p>תכנית הכשרה מקיפה וליווי צמוד</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>גמישות מלאה</h3>
-                        <p>עבודה בזמנים שמתאימים לך</p>
-                    </div>
-                </div>
-            </div>
-            <button class="join-button">להצטרפות למשפחה</button>
-        </div>
-    </section>
-
-    <section class="reviews" id="reviews">
-        <h2>ביקורות לקוחות</h2>
-        <div class="review-slider-container">
-            <div class="review active">
-                <div class="review-stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <p class="review-text">שירות מעולה! מצאנו חופשה מושלמת במחיר מצוין.</p>
-                <p class="review-author">- ישראל ישראלי</p>
-            </div>
-            <div class="review">
-                <div class="review-stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <p class="review-text">צוות מקצועי ואדיב, ממליצה בחום!</p>
-                <p class="review-author">- שרה כהן</p>
-            </div>
-            <div class="review">
-                <div class="review-stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                </div>
-                <p class="review-text">חוויה נהדרת, תודה על השירות המעולה.</p>
-                <p class="review-author">- דוד לוי</p>
-            </div>
-            <div class="review-nav">
-                <button onclick="prevReview()" aria-label="ביקורת קודמת">&#10094;</button>
-                <button onclick="nextReview()" aria-label="ביקורת הבאה">&#10095;</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>צור קשר</h2>
-        <div class="contact-form">
-            <form>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">צור קשר</h2>
+        <form class="contact-form">
+            <div class="form-group">
                 <input type="text" placeholder="שם מלא" required>
+            </div>
+            <div class="form-group">
                 <input type="email" placeholder="אימייל" required>
+            </div>
+            <div class="form-group">
                 <input type="tel" placeholder="טלפון" required>
-                <select name="subject" required>
-                    <option value="">נושא הפנייה</option>
-                    <option value="family">חופשות משפחתיות</option>
-                    <option value="couples">חופשות זוגיות</option>
-                    <option value="groups">קבוצות</option>
-                    <option value="other">אחר</option>
-                </select>
-                <textarea placeholder="הודעה" required></textarea>
-                <button type="submit">שלח</button>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="הודעה" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">שלח הודעה</button>
+        </form>
     </section>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>פרטי התקשרות</h3>
-                <p>טלפון: <a href="tel:0523985505">052-3985505</a></p>
-                <p>אימייל: <a href="mailto:info@betal-travel.co.il">info@betal-travel.co.il</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>כתובת</h3>
-                <p>רחוב הרצל 1</p>
-                <p>תל אביב, ישראל</p>
+                <p>טלפון: 052-3985505</p>
+                <p>אימייל: info@shira-travel.co.il</p>
             </div>
             <div class="footer-section">
                 <h3>עקבו אחרינו</h3>
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/YOUR_PHONE_NUMBER" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                 <!-- WhatsApp Group CTA -->
-                 <div class="footer-whatsapp-cta">
-                    <h4>רוצה דילים סודיים לפני כולם?</h4>
-                    <a href="YOUR_WHATSAPP_GROUP_LINK_HERE" target="_blank">
-                        <i class="fab fa-whatsapp"></i> הצטרף לקבוצה הסודית
-                    </a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-section">
                 <h3>מידע נוסף</h3>
-                <a href="#" onclick="showTermsModal(); return false;">תנאי שימוש</a>
+                <p>תנאי שימוש</p>
+                <p>מדיניות פרטיות</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>כל הזכויות שמורות &copy; 2024 שירה תיירות</p>
+        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>&copy; 2024 שירה תיירות. כל הזכויות שמורות.</p>
         </div>
     </footer>
 
-    <!-- Exit Popup -->
-    <div class="exit-popup" id="exitPopup">
-        <div class="exit-popup-content">
-            <button class="close-popup" id="closePopup" onclick="closeExitPopup()" aria-label="סגור">&times;</button>
-            <h3>רגע, לפני שאתה יוצא!</h3>
-            <p>אל תפספס את הדילים הסודיים שלנו! הצטרף לקבוצת ה-WhatsApp וקבל עדכונים לפני כולם.</p>
-            <!-- Option 1: Direct WhatsApp Group Link -->
-            <a href="YOUR_WHATSAPP_GROUP_LINK_HERE" class="whatsapp-join-link" target="_blank">
-                <i class="fab fa-whatsapp"></i> הצטרף לקבוצה הסודית
-            </a>
-             <!-- Option 2: Collect Phone Number (Requires Backend) -->
-            <!-- 
-            <form class="exit-popup-form" id="exitPopupForm">
-                <input type="tel" placeholder="השאר מספר WhatsApp ונצרף אותך" required>
-                <button type="submit">צרפו אותי!</button>
-            </form> 
-            -->
-        </div>
-    </div>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/YOUR_PHONE_NUMBER" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Terms of Use Modal -->
-    <div class="terms-modal" id="termsModal">
-        <div class="terms-content">
-            <button class="close-popup" onclick="closeTermsModal()">&times;</button>
-            <h3>תנאי שימוש</h3>
-            <p>ברוכים הבאים לאתר שירה טרוול. אנא קראו בעיון את תנאי השימוש הבאים:</p>
-            <p>1. האתר משמש כפלטפורמת מידע בלבד ואינו מוכר שירותים ישירות.</p>
-            <p>2. כל המידע המוצג באתר הוא למטרות מידע בלבד.</p>
-            <p>3. המחירים והזמינות המוצגים באתר עשויים להשתנות.</p>
-            <p>4. אנו ממליצים ליצור קשר ישיר עם הסוכן לקבלת מידע מעודכן ומדויק.</p>
-            <p>5. השימוש באתר מהווה הסכמה לתנאי השימוש הללו.</p>
-        </div>
-    </div>
-
     <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="openChat()">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
+    <!-- Chat Widget Script -->
     <script
         id="vegos-chat-widget-script"
         src="https://gpt-chat-live.vercel.app/widget.js"
         data-client-id="shira_tours"
     ></script>
 
-    <!-- Mobile Menu Toggle Logic -->
     <script>
+        // Mobile Navigation
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const navLinks = document.querySelector('.nav-links');
 
-        if (mobileNavToggle && navLinks) {
-            mobileNavToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                mobileNavToggle.classList.toggle('active'); // Optional: for styling the button itself (e.g., X icon)
-            });
+        mobileNavToggle.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
 
-            // Close menu when a link is clicked (optional but good UX)
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    mobileNavToggle.classList.remove('active');
-                });
-            });
-        }
-
-        // Add other general scripts here if needed, like review slider, exit popup etc.
-        // Make sure functions like prevReview, nextReview, closeExitPopup, toggleTextSize, showTermsModal, closeTermsModal are defined somewhere.
-        // Placeholder for review slider logic (if not already present elsewhere)
-        let currentReviewIndex = 0;
-        const reviews = document.querySelectorAll('.review');
-        function showReview(index) {
-            reviews.forEach((review, i) => {
-                review.classList.remove('active');
-                if (i === index) {
-                    review.classList.add('active');
-                }
-            });
-        }
-        function nextReview() {
-            currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
-            showReview(currentReviewIndex);
-        }
-        function prevReview() {
-            currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
-            showReview(currentReviewIndex);
-        }
-        if (reviews.length > 0) {
-            showReview(currentReviewIndex); // Show the first review initially
-        }
-
-        // Placeholder for other functions if they are not defined in other scripts
-        function closeExitPopup() {
-            const popup = document.getElementById('exitPopup');
-            if (popup) popup.classList.remove('visible');
-        }
-        function toggleTextSize() { console.log('toggleTextSize called'); /* Implement logic */ }
-        function showTermsModal() {
-            const modal = document.getElementById('termsModal');
-            if (modal) modal.classList.add('visible');
-        }
-        function closeTermsModal() {
-            const modal = document.getElementById('termsModal');
-            if (modal) modal.classList.remove('visible');
-        }
-
-         // Exit Intent Logic (Basic example)
-         let mouseLeftPage = false;
-         document.addEventListener('mouseleave', function(e) {
-             if (e.clientY < 0 && !sessionStorage.getItem('exitPopupShown')) { // Checks if mouse left towards top
-                 const popup = document.getElementById('exitPopup');
-                 if (popup) {
-                     popup.classList.add('visible');
-                     sessionStorage.setItem('exitPopupShown', 'true'); // Prevent showing again in the same session
-                     mouseLeftPage = true; // Flag that mouse has left
-                 }
-             }
-         });
-
-         // Optional: Prevent immediate re-trigger if mouse quickly returns
-         document.addEventListener('mouseenter', function(e) {
-              // Reset flag or add delay logic if needed
-         });
-
-         // Add ESC key support for exit popup
-         document.addEventListener('keydown', function(e) {
-             // Check if ESC key was pressed
-             if (e.key === "Escape" || e.keyCode === 27) {
-                 // Show popup if not shown already in this session
-                 if (!sessionStorage.getItem('exitPopupShown')) {
-                     const popup = document.getElementById('exitPopup');
-                     if (popup) {
-                         popup.classList.add('visible');
-                         sessionStorage.setItem('exitPopupShown', 'true');
-                     }
-                 }
-             }
-         });
-
-    </script>
-
-    <!-- GSAP Core & ScrollTrigger Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-
-    <!-- Smooth Scroll & Reveal Animation -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Register GSAP plugins
-            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-            
-            // Smooth scroll to sections when clicking nav links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    gsap.to(window, {
-                        duration: 1.5,
-                        scrollTo: {
-                            y: targetId,
-                            offsetY: 80
-                        },
-                        ease: "power3.inOut"
-                    });
-                });
-            });
-            
-            // Hero section parallax
-            const heroSection = document.querySelector('#hero');
-            const heroImage = document.querySelector('.hero-background-image');
-            if (heroSection && heroImage) {
-                ScrollTrigger.create({
-                    trigger: heroSection,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                    onUpdate: self => {
-                        gsap.to(heroImage, {
-                            y: self.progress * 150,
-                            ease: "none",
-                            overwrite: "auto"
-                        });
-                    }
-                });
-            }
-            
-            // Reveal animation for section titles
-            gsap.utils.toArray('section h2').forEach(title => {
-                ScrollTrigger.create({
-                    trigger: title,
-                    start: "top 80%",
-                    once: true,
-                    onEnter: () => {
-                        gsap.fromTo(title, 
-                            { y: 50, opacity: 0 },
-                            { 
-                                y: 0, 
-                                opacity: 1, 
-                                duration: 0.8, 
-                                ease: "back.out(1.7)" 
-                            }
-                        );
-                    }
-                });
-            });
-            
-            // Staggered reveal for cards (deals, team members, etc.)
-            const revealSections = [
-                { selector: '.deal-card', stagger: 0.15 },
-                { selector: '.team-member', stagger: 0.15 },
-                { selector: '.about-content', stagger: 0 },
-                { selector: '.benefit-item', stagger: 0.1 }
-            ];
-            
-            revealSections.forEach(section => {
-                const elements = document.querySelectorAll(section.selector);
-                if (elements.length > 0) {
-                    ScrollTrigger.create({
-                        trigger: elements[0].parentElement,
-                        start: "top 75%",
-                        once: true,
-                        onEnter: () => {
-                            gsap.fromTo(elements, 
-                                { y: 100, opacity: 0 },
-                                { 
-                                    y: 0, 
-                                    opacity: 1, 
-                                    duration: 1, 
-                                    stagger: section.stagger, 
-                                    ease: "power3.out" 
-                                }
-                            );
-                        }
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
-            });
-            
-            // Parallax for background elements
-            gsap.utils.toArray('.destination-screen').forEach(section => {
-                const bg = section.style.backgroundImage;
-                if (bg) {
-                    ScrollTrigger.create({
-                        trigger: section,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: true,
-                        onUpdate: self => {
-                            // Apply parallax effect to background
-                            section.style.backgroundPosition = `center ${-self.progress * 20}%`;
-                        }
-                    });
-                }
-            });
-            
-            // Add scale-in effect for reviews
-            const reviewContainer = document.querySelector('.review-slider-container');
-            if (reviewContainer) {
-                ScrollTrigger.create({
-                    trigger: reviewContainer,
-                    start: "top 80%",
-                    once: true,
-                    onEnter: () => {
-                        gsap.fromTo(reviewContainer,
-                            { scale: 0.8, opacity: 0 },
-                            { 
-                                scale: 1, 
-                                opacity: 1, 
-                                duration: 1,
-                                ease: "elastic.out(1, 0.5)" 
-                            }
-                        );
-                    }
-                });
-            }
-            
-            // Advanced scroll animation for footer
-            const footer = document.querySelector('footer');
-            if (footer) {
-                const footerSections = footer.querySelectorAll('.footer-section');
-                ScrollTrigger.create({
-                    trigger: footer,
-                    start: "top 90%",
-                    once: true,
-                    onEnter: () => {
-                        gsap.fromTo(footerSections,
-                            { y: 50, opacity: 0 },
-                            { 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.1,
-                                duration: 0.8, 
-                                ease: "power2.out" 
-                            }
-                        );
-                    }
-                });
-            }
-            
-            // Page transition effect
-            window.addEventListener('load', () => {
-                gsap.fromTo(
-                    'body',
-                    { opacity: 0 },
-                    { opacity: 1, duration: 0.6, ease: 'power2.out' }
-                );
             });
         });
-    </script>
 
-    <!-- Old animation scripts - keeping for reference -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+        // Carousel Functionality
+        let currentSlide = 0;
+        const track = document.getElementById('dealsTrack');
+        const cards = track.children;
+        const cardWidth = 320; // card width + gap
+
+        function moveCarousel(direction) {
+            currentSlide += direction;
             
-            // Get the hero elements for animation
-            const heroSection = document.querySelector('#hero');
-            const bgImage = document.querySelector('.hero-background-image');
-            
-            // Simple parallax for hero on scroll
-            if (heroSection && bgImage) {
-                ScrollTrigger.create({
-                    trigger: heroSection,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                    onUpdate: (self) => {
-                        // Parallax the background image when scrolling
-                        gsap.to(bgImage, {
-                            y: self.progress * 100, // Moves down as you scroll
-                            ease: "none",
-                            overwrite: "auto"
-                        });
-                    }
-                });
+            if (currentSlide < 0) {
+                currentSlide = cards.length - 1;
+            } else if (currentSlide >= cards.length) {
+                currentSlide = 0;
             }
-        });
-    </script>
 
-    <!-- 3D Carousel Animation Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // 3D Carousel variables
-            const carousel = document.querySelector('.categories-3d-carousel');
-            const cards = document.querySelectorAll('.category-card');
-            const cardsCount = cards.length;
-            const prevBtn = document.querySelector('.carousel-control.prev');
-            const nextBtn = document.querySelector('.carousel-control.next');
-            let radius, theta;
-            let currentIndex = 0;
-            
-            // Setup card titles on front
-            cards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const frontFace = card.querySelector('.category-card-front');
-                const title = card.querySelector('.category-content h3').textContent;
-                frontFace.setAttribute('data-title', title);
-            });
-            
-            // Function to calculate radius based on card size and count
-            function calculateLayout() {
-                // Use slightly more than card width for a good spacing
-                radius = (window.innerWidth < 768) ? 250 : 300;
-                theta = 360 / cardsCount;
-                
-                // Initial positioning
-                positionCards(currentIndex);
-            }
-            
-            // Function to position all cards in a circle
-            function positionCards(startIndex) {
-                cards.forEach((card, i) => {
-                    // Calculate angle for this card (0 to 360 degrees)
-                    const angle = theta * (i - startIndex);
-                    const angleRadians = angle * Math.PI / 180;
-                    
-                    // Calculate position on the circle
-                    const x = radius * Math.sin(angleRadians);
-                    const z = radius * Math.cos(angleRadians) - radius;
-                    
-                    // Calculate scale and opacity based on z-position
-                    const scale = mapRange(z, -radius, radius, 0.7, 1);
-                    const opacity = mapRange(z, -radius, radius, 0.6, 1);
-                    
-                    // Apply transform
-                    gsap.to(card, {
-                        duration: 1,
-                        x: x,
-                        z: z,
-                        scale: scale,
-                        opacity: opacity,
-                        ease: "power3.out",
-                        // Bring focused card to front with higher z-index
-                        zIndex: z < -100 ? 1 : 10
-                    });
-                    
-                    // Apply a slight rotation to cards for a more dynamic feel
-                    gsap.to(card, { 
-                        duration: 1, 
-                        rotationY: angle * 0.1,
-                        ease: "power3.out"
-                    });
-                });
-            }
-            
-            // Helper function to map a range of values to another range
-            function mapRange(value, inMin, inMax, outMin, outMax) {
-                return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
-            }
-            
-            // Navigation functions
-            function goToPrev() {
-                currentIndex = (currentIndex - 1 + cardsCount) % cardsCount;
-                positionCards(currentIndex);
-            }
-            
-            function goToNext() {
-                currentIndex = (currentIndex + 1) % cardsCount;
-                positionCards(currentIndex);
-            }
-            
-            // Event listeners
-            if(prevBtn) prevBtn.addEventListener('click', goToPrev);
-            if(nextBtn) nextBtn.addEventListener('click', goToNext);
-            
-            // Auto-rotate slowly if no interaction
-            let autoRotateInterval = setInterval(goToNext, 4000);
-            
-            // Stop auto-rotation on user interaction
-            carousel.addEventListener('mouseenter', () => {
-                clearInterval(autoRotateInterval);
-            });
-            
-            carousel.addEventListener('mouseleave', () => {
-                autoRotateInterval = setInterval(goToNext, 4000);
-            });
-            
-            // Allow direct clicking on cards to bring them to front
-            cards.forEach((card, i) => {
-                card.addEventListener('click', (e) => {
-                    // Only rotate carousel if clicking on the front
-                    if(!e.target.closest('.category-card-back')) {
-                        const cardIndex = Array.from(cards).indexOf(card);
-                        const diff = (cardIndex - currentIndex + cardsCount) % cardsCount;
-                        
-                        // If clicking a card that's not in focus
-                        if(diff !== 0) {
-                            // Calculate shortest path to bring clicked card to front
-                            if(diff <= cardsCount/2) {
-                                // Go forward
-                                for(let j=0; j<diff; j++) {
-                                    setTimeout(() => goToNext(), j*150);
-                                }
-                            } else {
-                                // Go backward
-                                for(let j=0; j<(cardsCount-diff); j++) {
-                                    setTimeout(() => goToPrev(), j*150);
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-            
-            // Scroll trigger
-            ScrollTrigger.create({
-                trigger: "#categories-showcase",
-                start: "top 80%",
-                onEnter: () => {
-                    // Add entrance animation when section appears
-                    gsap.from(carousel, {
-                        opacity: 0,
-                        scale: 0.8,
-                        duration: 1,
-                        ease: "power3.out"
-                    });
-                    
-                    // Initial setup and position after it's visible
-                    calculateLayout();
-                }
-            });
-            
-            // Handle window resize
-            window.addEventListener('resize', calculateLayout);
-            
-            // Initial setup
-            calculateLayout();
-        });
-    </script>
+            const translateX = -currentSlide * cardWidth;
+            track.style.transform = `translateX(${translateX}px)`;
+        }
 
-    <!-- Color Wipe Animation Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // No need to register ScrollTrigger if animation runs on load
+        // Auto-rotate carousel
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
 
-            const panels = document.querySelectorAll('#hero .wipe-panel');
-            const heroHeading = document.querySelector('#hero .hero-content h1');
-
-            if (panels.length > 0 && heroHeading) {
-                gsap.set(heroHeading, { opacity: 0, y: 30 }); // Ensure initial state
-
-                const tl = gsap.timeline({
-                    // Add a small delay before starting
-                    delay: 0.2
-                });
-
-                // Animate panels scaling down
-                tl.to(panels, {
-                    scaleY: 0,
-                    duration: 0.8, // Speed of the wipe
-                    stagger: 0.15, // Delay between each panel animation
-                    ease: "power3.inOut"
-                })
-                // Animate heading fading/sliding in AFTER panels finish
-                .to(heroHeading, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.0, // Speed of heading reveal
-                    ease: "power3.out"
-                }, "-=0.4"); // Start heading animation slightly before panels fully disappear
-
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
             } else {
-                console.error("GSAP Color Wipe Error: Could not find required elements (.wipe-panel, #hero h1).");
-                // Fallback: If panels/heading not found, ensure heading is visible
-                if(heroHeading) gsap.set(heroHeading, { opacity: 1, y: 0 });
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
             }
         });
-    </script>
 
-    <!-- Enhanced Exit Popup & Interactive Hero Integration -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize exit popup enhancements
-            initExitPopupEnhancements();
-        });
-
-        function initExitPopupEnhancements() {
-            // ESC key event to trigger exit popup
-            document.addEventListener('keydown', function(e) {
-                // Check if ESC key was pressed (key code 27)
-                if (e.key === "Escape" || e.keyCode === 27) {
-                    // Only show if not already shown in this session
-                    if (!sessionStorage.getItem('exitPopupShown')) {
-                        const popup = document.getElementById('exitPopup');
-                        if (popup) {
-                            popup.classList.add('visible');
-                            sessionStorage.setItem('exitPopupShown', 'true');
-                        }
-                    }
-                }
-            });
-
-            // Enhance the existing closeExitPopup function to work with GSAP
-            window.closeExitPopup = function() {
-                const popup = document.getElementById('exitPopup');
-                if (popup) {
-                    // Add a nice fade-out animation with GSAP
-                    gsap.to(popup, {
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.out",
-                        onComplete: () => {
-                            popup.classList.remove('visible');
-                            // Reset opacity for next time
-                            gsap.set(popup, { opacity: 1 });
-                        }
-                    });
-                }
-            };
-
-            // Enhance the exit popup appearance
-            const exitPopup = document.getElementById('exitPopup');
-            if (exitPopup) {
-                const exitPopupContent = exitPopup.querySelector('.exit-popup-content');
-                
-                if (exitPopupContent) {
-                    // Add a nice entrance animation when the popup becomes visible
-                    const observer = new MutationObserver((mutations) => {
-                        mutations.forEach((mutation) => {
-                            if (mutation.target.classList.contains('visible')) {
-                                gsap.fromTo(exitPopupContent, 
-                                    { scale: 0.8, opacity: 0 },
-                                    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
-                                );
-                            }
-                        });
-                    });
-                    
-                    observer.observe(exitPopup, { attributes: true, attributeFilter: ['class'] });
-                }
-            }
+        // Chat function
+        function openChat() {
+            // This will be handled by the chat widget
+            console.log('Opening chat...');
         }
-    </script>
 
-    <!-- Mouse Interaction for Hero Section -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize hero mouse interactions
-            initHeroMouseInteraction();
-        });
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function initHeroMouseInteraction() {
-            const hero = document.querySelector('#hero');
-            if (!hero) return;
-
-            const heroImage = document.querySelector('.hero-background-image');
-            const floatingElements = document.querySelectorAll('.floating-element');
-            const heroContent = document.querySelector('.hero-content');
-            
-            hero.addEventListener('mousemove', (e) => {
-                // Calculate mouse position as percentage of hero section
-                const rect = hero.getBoundingClientRect();
-                const mouseX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-                const mouseY = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
-                
-                // Parallax effect on background image - subtle movement
-                if (heroImage) {
-                    gsap.to(heroImage, {
-                        duration: 1,
-                        x: mouseX * 30,
-                        y: mouseY * 30,
-                        ease: "power1.out"
-                    });
-                }
-                
-                // More pronounced movement on floating elements
-                floatingElements.forEach((element, index) => {
-                    // Each element moves at different speed/direction for depth effect
-                    const speedMultiplier = index === 0 ? 40 : (index === 1 ? 60 : 25);
-                    gsap.to(element, {
-                        duration: 1,
-                        x: mouseX * speedMultiplier,
-                        y: mouseY * speedMultiplier,
-                        rotation: mouseX * 5,
-                        ease: "power1.out"
-                    });
-                });
-                
-                // Subtle counter-movement of content for nice effect
-                if (heroContent) {
-                    gsap.to(heroContent, {
-                        duration: 1,
-                        x: mouseX * -15,
-                        y: mouseY * -15,
-                        ease: "power1.out"
-                    });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-            
-            // Initialize animations on load
-            initFloatingElements();
-        }
-        
-        function initFloatingElements() {
-            const elements = document.querySelectorAll('.floating-element');
-            
-            elements.forEach((element, index) => {
-                // Set initial floating animations for each element
-                gsap.to(element, {
-                    y: index % 2 === 0 ? '-=20' : '+=20',
-                    x: index % 2 === 0 ? '+=10' : '-=10',
-                    rotation: index % 2 === 0 ? 5 : -5,
-                    duration: 3 + index,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: index * 0.5
-                });
-            });
-        }
-    </script>
+        }, observerOptions);
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Animate palm trees
-            const palmTrees = document.querySelectorAll('.palm-tree');
-            palmTrees.forEach(tree => {
-                setTimeout(() => {
-                    tree.classList.add('animate');
-                }, 500);
-            });
-
-            // Add scroll-triggered animations
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Hero section animations
-            gsap.from('.hero-content h1', {
-                duration: 1,
-                y: 50,
-                opacity: 0,
-                ease: 'power3.out'
-            });
-            
-            gsap.from('.hero-subtitle', {
-                duration: 1,
-                y: 30,
-                opacity: 0,
-                delay: 0.3,
-                ease: 'power3.out'
-            });
-            
-            gsap.from('.quick-links', {
-                duration: 1,
-                y: 30,
-                opacity: 0,
-                delay: 0.6,
-                ease: 'power3.out'
-            });
+        // Observe all cards and sections
+        document.querySelectorAll('.destination-card, .service-card, .deal-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
         });
     </script>
-
 </body>
-</html>
-
+</html> 

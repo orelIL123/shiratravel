@@ -659,16 +659,11 @@
     </div>
 
     <!-- Chat Widget Script -->
-    <script>
-        // הוספת פרמטר ייחודי לסקריפט הצ'אט בוט כדי למנוע שמירה במטמון
-        (function() {
-            var script = document.createElement('script');
-            script.id = 'vegos-chat-widget-script';
-            script.src = 'https://gpt-chat-live.vercel.app/widget.js?v=' + Date.now();
-            script.setAttribute('data-client-id', 'shira_tours');
-            document.body.appendChild(script);
-        })();
-    </script>
+    <script
+        id="vegos-chat-widget-script"
+        src="https://gpt-chat-live.vercel.app/widget.js?v=1"
+        data-client-id="shira_tours"
+    ></script>
 
     <script>
         // GSAP Animations

@@ -2,10 +2,12 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>שירה תיירות - חוויות בלתי נשכחות</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -18,20 +20,17 @@
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
-            background: #0a0a0a;
         }
 
-        /* Modern Header */
+        /* Header */
         .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -46,10 +45,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ff6b6b;
         }
 
         .nav-links {
@@ -59,33 +55,21 @@
         }
 
         .nav-links a {
-            color: #fff;
+            color: #333;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover {
+            color: #ff6b6b;
         }
 
         .mobile-nav-toggle {
             display: none;
             background: none;
             border: none;
-            color: #fff;
+            color: #333;
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -101,17 +85,6 @@
             justify-content: center;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
-        }
-
         .hero-content {
             text-align: center;
             color: #fff;
@@ -125,14 +98,12 @@
             font-weight: 900;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease;
         }
 
         .hero p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
         }
 
         .cta-button {
@@ -144,7 +115,6 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.4s both;
         }
 
         .cta-button:hover {
@@ -166,12 +136,11 @@
             position: absolute;
             color: rgba(255,255,255,0.1);
             font-size: 2rem;
-            animation: float 6s ease-in-out infinite;
         }
 
-        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
-        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(1) { top: 20%; left: 10%; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; }
 
         /* Destinations Section */
         .destinations {
@@ -184,10 +153,7 @@
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 3rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #333;
         }
 
         .destinations-grid {
@@ -201,121 +167,97 @@
 
         .destination-card {
             background: #fff;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
         .destination-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
 
         .destination-image {
-            height: 250px;
+            height: 200px;
             background-size: cover;
             background-position: center;
-            position: relative;
-        }
-
-        .destination-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .destination-card:hover .destination-overlay {
-            opacity: 1;
         }
 
         .destination-content {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .destination-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             color: #333;
         }
 
         .destination-content p {
             color: #666;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .destination-price {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: #ff6b6b;
             margin-bottom: 1rem;
         }
 
         .book-button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 0.5rem 1rem;
+            background: #ff6b6b;
             color: #fff;
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s ease;
         }
 
         .book-button:hover {
-            transform: scale(1.05);
+            background: #e55555;
         }
 
-        /* Deals Carousel */
+        /* Deals Section */
         .deals-section {
             padding: 5rem 0;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: #fff;
+            background: #f8f9fa;
         }
 
         .deals-carousel {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-            position: relative;
         }
 
         .deals-track {
             display: flex;
             gap: 2rem;
-            transition: transform 0.5s ease;
             overflow-x: auto;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
 
         .deal-card {
             min-width: 300px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: #fff;
+            border-radius: 15px;
             padding: 2rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .deal-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
+            color: #333;
         }
 
         .deal-card .price {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
             margin-bottom: 1rem;
         }
 
@@ -327,23 +269,23 @@
         }
 
         .carousel-btn {
-            background: rgba(255,255,255,0.2);
+            background: #ff6b6b;
             border: none;
             color: #fff;
-            padding: 1rem;
-            border-radius: 50%;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .carousel-btn:hover {
-            background: rgba(255,255,255,0.3);
+            background: #e55555;
         }
 
         /* Services Section */
         .services {
             padding: 5rem 0;
-            background: #f8f9fa;
+            background: #fff;
         }
 
         .services-grid {
@@ -358,10 +300,10 @@
         .service-card {
             background: #fff;
             padding: 2rem;
-            border-radius: 20px;
+            border-radius: 15px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .service-card:hover {
@@ -371,17 +313,13 @@
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ff6b6b;
         }
 
         /* Contact Section */
         .contact {
             padding: 5rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
+            background: #f8f9fa;
         }
 
         .contact-form {
@@ -398,38 +336,31 @@
         .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             font-size: 1rem;
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255,255,255,0.7);
         }
 
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: #ff6b6b;
             color: #fff;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .submit-btn:hover {
-            transform: translateY(-2px);
+            background: #e55555;
         }
 
         /* Footer */
         .footer {
-            background: #0a0a0a;
+            background: #333;
             color: #fff;
             padding: 3rem 0 1rem;
         }
@@ -462,23 +393,6 @@
 
         .social-links a:hover {
             color: #ff6b6b;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
         }
 
         /* Mobile Responsive */
@@ -531,14 +445,14 @@
         .chat-button {
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: #ff6b6b;
             border: none;
             border-radius: 50%;
             color: #fff;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
 
         .chat-button:hover {
@@ -583,11 +497,7 @@
         <h2 class="section-title">יעדים מובילים</h2>
         <div class="destinations-grid">
             <div class="destination-card">
-                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
-                    <div class="destination-overlay">
-                        <i class="fas fa-search-plus fa-2x"></i>
-                    </div>
-                </div>
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="destination-content">
                     <h3>פריז, צרפת</h3>
                     <p>עיר האורות והרומנטיקה - חוויה בלתי נשכחת</p>
@@ -597,11 +507,7 @@
             </div>
 
             <div class="destination-card">
-                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1555992336-03a23c7b20ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
-                    <div class="destination-overlay">
-                        <i class="fas fa-search-plus fa-2x"></i>
-                    </div>
-                </div>
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1555992336-03a23c7b20ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="destination-content">
                     <h3>תאילנד</h3>
                     <p>גן עדן טרופי עם חופים מדהימים ומקדשים עתיקים</p>
@@ -611,11 +517,7 @@
             </div>
 
             <div class="destination-card">
-                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
-                    <div class="destination-overlay">
-                        <i class="fas fa-search-plus fa-2x"></i>
-                    </div>
-                </div>
+                <div class="destination-image" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="destination-content">
                     <h3>יפן</h3>
                     <p>שילוב מושלם בין מסורת עתיקה לחדשנות מודרנית</p>
@@ -757,13 +659,98 @@
     </div>
 
     <!-- Chat Widget Script -->
-    <script
-        id="vegos-chat-widget-script"
-        src="https://gpt-chat-live.vercel.app/widget.js"
-        data-client-id="shira_tours"
-    ></script>
+    <script>
+        // הוספת פרמטר ייחודי לסקריפט הצ'אט בוט כדי למנוע שמירה במטמון
+        (function() {
+            var script = document.createElement('script');
+            script.id = 'vegos-chat-widget-script';
+            script.src = 'https://gpt-chat-live.vercel.app/widget.js?v=' + Date.now();
+            script.setAttribute('data-client-id', 'shira_tours');
+            document.body.appendChild(script);
+        })();
+    </script>
 
     <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animations
+        gsap.from('.hero h1', {
+            duration: 1,
+            y: 100,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero p', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.cta-button', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.6,
+            ease: 'power3.out'
+        });
+
+        // Floating elements animation
+        gsap.to('.floating-element', {
+            y: -20,
+            duration: 2,
+            ease: 'power2.inOut',
+            stagger: 0.5,
+            repeat: -1,
+            yoyo: true
+        });
+
+        // Scroll animations
+        gsap.from('.destination-card', {
+            scrollTrigger: {
+                trigger: '.destinations',
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.service-card', {
+            scrollTrigger: {
+                trigger: '.services',
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.deal-card', {
+            scrollTrigger: {
+                trigger: '.deals-section',
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse'
+            },
+            x: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
         // Mobile Navigation
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -810,44 +797,11 @@
             moveCarousel(1);
         }, 5000);
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                header.style.background = 'rgba(10, 10, 10, 0.95)';
-            }
-        });
-
         // Chat function
         function openChat() {
             // This will be handled by the chat widget
             console.log('Opening chat...');
         }
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards and sections
-        document.querySelectorAll('.destination-card, .service-card, .deal-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
     </script>
 </body>
 </html> 
